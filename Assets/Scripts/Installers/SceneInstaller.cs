@@ -14,6 +14,7 @@ namespace Installers
         {
             Container.Bind<SlotGroupComponent>().FromComponentInHierarchy().AsSingle().NonLazy();
             Container.Bind<FractionBlockInteractor>().FromNewComponentOnNewPrefab(_fractionBlockInteractor).AsSingle().NonLazy();
+            Container.Bind<GameManager>().FromComponentInHierarchy().AsSingle().NonLazy();
         }
     }
 }
