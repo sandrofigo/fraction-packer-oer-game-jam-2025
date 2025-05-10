@@ -14,6 +14,8 @@ namespace Box
 
         public BlockType BlockType => _blockType;
 
+        public FractionSlot Slot { get; set; }
+
         private Vector3 _initialPosition;
 
         private void Start()
@@ -21,20 +23,32 @@ namespace Box
             _initialPosition = transform.position;
         }
 
-        public void PutIntoSlot(FractionSlot slot, SlotPlacementType placementType)
-        {
-            slot.Place(this, placementType, out var position);
-            MoveTo(position);
-        }
-
         public void ResetPosition()
         {
-            MoveTo(_initialPosition);
+            MoveTo(_initialPosition, true);
         }
 
-        public void MoveTo(Vector3 position)
+        public void MoveTo(Vector3 position, bool animate)
         {
-            _animationController.MoveTo(position);
+            if (animate)
+                _animationController.MoveTo(position);
+            else
+                transform.position = position;
+        }
+
+        public void SetHover(bool isHovered)
+        {
+            _animationController.SetHover(isHovered);
+        }
+
+        public void Select()
+        {
+            _animationController.Select();
+        }
+
+        public void DoInvalidShake()
+        {
+            _animationController.DoInvalidShakeAnimation();
         }
     }
 }

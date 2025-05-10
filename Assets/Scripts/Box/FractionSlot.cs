@@ -53,14 +53,16 @@ namespace Box
             return IsValid ? GetNumerator() / (float)GetDenominator() : -1;
         }
 
-        public void Place(AFractionBlock block, SlotPlacementType placementType, out Vector3 position)
+        public void Put(AFractionBlock block, SlotPlacementType placementType)
         {
-            position = transform.TransformPoint(block.BlockType switch
+            Vector3 position = transform.TransformPoint(block.BlockType switch
             {
                 BlockType.Numerator => _numeratorSlot.position,
                 BlockType.Denominator => _denominatorSlot.position,
                 _ => _fullSlot.position
             });
+            
+            block.MoveTo(position, true);
 
             if (!HasRoom(block.BlockType))
             {
@@ -77,6 +79,36 @@ namespace Box
             }
 
             _content.Set(block);
+        }
+
+        public void SetToLastContent()
+        {
+            _content.Numerator?.ResetPosition();
+            _content.Denominator?.ResetPosition();
+            _content.FullFraction?.ResetPosition();
+            
+            _content = _lastContent;
+            _lastContent = new SlotContent();
+            
+            if (_content.Numerator) Put(_content.Numerator, SlotPlacementType.Place);
+            if (_content.Denominator) Put(_content.Denominator, SlotPlacementType.Place);
+            if (_content.FullFraction) Put(_content.FullFraction, SlotPlacementType.Place);
+        }
+
+        public void Remove(AFractionBlock block)
+        {
+            switch (block.BlockType)
+            {
+                case BlockType.Numerator:
+                    _content.Numerator = null;
+                    break;
+                case BlockType.Denominator:
+                    _content.Denominator = null;
+                    break;
+                case BlockType.Full:
+                    _content.FullFraction = null;
+                    break;
+            }
         }
 
         private bool HasRoom(BlockType blockType)

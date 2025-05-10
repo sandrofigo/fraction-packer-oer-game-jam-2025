@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6916116166373378066}
     m_Modifications:
+    - target: {fileID: 1320065725096396746, guid: 30b3782c517062c468b5e59906c7c8f8, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2583216034370850100, guid: 30b3782c517062c468b5e59906c7c8f8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -84,6 +88,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fraction Component
       objectReference: {fileID: 0}
+    - target: {fileID: 4883422736629390516, guid: 30b3782c517062c468b5e59906c7c8f8, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -128,6 +136,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6b5c8f9601865ef43949a4da45df5514, type: 3}
       propertyPath: m_Name
       value: fraction_block_half
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6b5c8f9601865ef43949a4da45df5514, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
