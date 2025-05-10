@@ -9,6 +9,8 @@ public enum ProblemType
     DESC,           // frac > frac > frac ...
     PlusLesser,     // frac + frac < frac
     PlusGreater,    // frac + frac > frac
+    Equals,         // frac = frac = frac ...
+    PlusEquals,     // frac + frac = frac
 }
 
 public enum OperatorType
@@ -34,7 +36,11 @@ public class ProblemFactory : MonoBehaviour
     private Dictionary<char, ProblemType> problemTypeTokens = new Dictionary<char, ProblemType>()
     {
         { 'A', ProblemType.ASC },
-        { 'D', ProblemType.DESC }
+        { 'D', ProblemType.DESC },
+        { 'L', ProblemType.PlusLesser },
+        { 'G', ProblemType.PlusGreater },
+        { 'E', ProblemType.Equals },
+        { 'P', ProblemType.PlusEquals },
     };
 
     private string genDataString;
