@@ -1,0 +1,96 @@
+using UnityEngine;
+using System.Collections.Generic;
+using System;
+
+public enum ProblemType
+{
+    None,
+    ASC,            // frac < frac < frac ...
+    DESC,           // frac > frac > frac ...
+    PlusLesser,     // frac + frac < frac
+    PlusGreater,    // frac + frac > frac
+}
+
+public enum OperatorType
+{
+    Less,
+    LessOrEqual,
+    Equal,
+    GreaterOrEqual,
+    Greater
+}
+
+public struct ParseData
+{
+    public int amountFractions;
+    public Dictionary<int, Fraction> presetFractions; // idx, fraction
+    public List<OperatorType> operators;
+}
+
+
+public class ProblemFactory : MonoBehaviour
+{
+    [SerializeField]
+    private Dictionary<char, ProblemType> problemTypeTokens = new Dictionary<char, ProblemType>()
+    {
+        { 'A', ProblemType.ASC },
+        { 'D', ProblemType.DESC }
+    };
+
+    private string genDataString;
+
+    public Problem CreateProblem(string data)
+    {
+        genDataString = data;
+        ProblemType type = ExtractProblemType();
+        IParser parser = null;
+        ParseData parseData = new ParseData();
+        ISolver solver = null;
+        
+        switch (type)
+        {
+            case ProblemType.ASC:
+                parser = new AscParser();
+                solver = new AscSolver();
+                break;
+            default:
+                break;
+        }
+        
+        if(parser == null)
+        {
+            Debug.LogWarning("No parser seleceted, aborting...");
+            return null;
+        }
+        else if(!parser.TryParse(data, ref parseData))
+        {
+            Debug.LogWarning("Parser failed, aborting...");
+            return null;
+        }
+        
+        return new Problem(type, parseData, solver);
+    }
+
+    private ProblemType ExtractProblemType()
+    {
+        ProblemType type = ProblemType.None;
+
+        try
+        {
+            char token = genDataString[0];
+
+            if (problemTypeTokens.ContainsKey(token))
+            {
+                type = problemTypeTokens[token];
+            }
+
+            genDataString = genDataString.Substring(1);
+        }
+        catch (IndexOutOfRangeException ex)
+        {
+            Debug.LogError(ex.Message);
+        }
+
+        return type;
+    }
+}
