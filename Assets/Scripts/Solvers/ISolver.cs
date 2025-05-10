@@ -1,4 +1,4 @@
 public interface ISolver
 {
-    public bool GetSolution();
+    public bool GetSolution(Fraction[] fractions);
 }

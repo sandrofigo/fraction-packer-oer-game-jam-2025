@@ -31,13 +31,13 @@ public class AscParser : IParser
             if (int.TryParse(fractionString[0].ToString(), out int numerator))
             {
                 fractionIsEmpty = false;
-                // TODO: set fraction numerator
+                fraction.Numerator = numerator;
             }
 
             if (int.TryParse(fractionString[2].ToString(), out int denominator))
             {
                 fractionIsEmpty = false;
-                // TODO: set fraction denominator
+                fraction.Denominator = denominator;
             }
 
             if(!fractionIsEmpty)

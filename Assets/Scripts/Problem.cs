@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fraction
+public struct Fraction
 {
-
+    public int Numerator;
+    public int Denominator;
+    public float Value => (Numerator / Denominator);
+    public bool IsValid => (Numerator > 0 && Denominator > 0);
 }
 
 public class Problem
@@ -73,23 +76,27 @@ public class Problem
         if (!PreSolutionDataValidation())
             return false;
 
-        outResult = solver.GetSolution();
+        outResult = solver.GetSolution(fractions);
         return true;
     }
 
     private bool PreSolutionDataValidation()
     {
-        if (fractions.Length != amountFractions)
+        if(fractions.Length != amountFractions)
         {
             Debug.LogError("PreSolutionCheck FAILED: wrong amount of <Fractions>");
             return false;
         }
 
-        if (operators.Length != (amountFractions - 1))
+        if(operators.Length != (amountFractions - 1))
         {
             Debug.LogError("PreSolutionCheck FAILED: wrong amount of <Operators>");
             return false;
         }
+
+        foreach(var fraction in fractions)
+            if(!fraction.IsValid)
+                return false;
 
         return true;
     }
