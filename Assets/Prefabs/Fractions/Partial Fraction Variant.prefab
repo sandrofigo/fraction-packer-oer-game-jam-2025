@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animationController: {fileID: 8611234997645921724}
-  _blockType: 0
+  _blockType: 2
   _fractionComponent: {fileID: 4924596536435222364}
 --- !u!224 &6916116166373378066 stripped
 RectTransform:

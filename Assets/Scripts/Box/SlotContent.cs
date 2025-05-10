@@ -1,7 +1,9 @@
+using System;
 using Fractions;
 
 namespace Box
 {
+    [Serializable]
     public struct SlotContent
     {
         public PartialFractionBlock Numerator;
@@ -25,9 +27,9 @@ namespace Box
             }
         }
 
-        public void Set(AFractionBlock block)
+        public void Set(AFractionBlock block, BlockType blockType)
         {
-            switch (block.BlockType)
+            switch (blockType)
             {
                 case BlockType.Numerator:
                     Numerator = (PartialFractionBlock) block;

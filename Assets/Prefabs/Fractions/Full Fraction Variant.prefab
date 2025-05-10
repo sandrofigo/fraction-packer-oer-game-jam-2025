@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animationController: {fileID: 4208923742034280703}
-  _blockType: 0
+  _isFull: 1
   _numeratorFractionComponent: {fileID: 4158403231580964343}
   _denominatorFractionComponent: {fileID: 4144762923100259213}
 --- !u!114 &4208923742034280703 stripped

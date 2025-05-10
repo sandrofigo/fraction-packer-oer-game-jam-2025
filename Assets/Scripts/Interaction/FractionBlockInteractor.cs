@@ -22,9 +22,13 @@ namespace Interaction
 
         private AFractionBlock _hoveredBlock;
         private AFractionBlock _selectedBlock;
+
         private FractionSlot _hoveredSlot;
+        private Transform _hoveredSlotPart;
 
         private Camera _camera;
+
+        private Plane _groundPlane = new Plane(Vector3.up, Vector3.zero);
 
         private void Awake()
         {
@@ -45,7 +49,7 @@ namespace Interaction
             }
             else
             {
-                _selectedBlock.MoveTo(_controlsManager.PointerPosition, false);
+                _selectedBlock.MoveTo(GetMousePositionOnGroundPlane(), false);
                 UpdateSlotSelection();
             }
         }
@@ -65,13 +69,17 @@ namespace Interaction
 
                 if (_hoveredSlot)
                 {
-                    _hoveredSlot.Put(_selectedBlock, SlotPlacementType.Place);
+                    _hoveredSlot.Put(_selectedBlock, _hoveredSlotPart, SlotPlacementType.Place);
                 }
                 else
                 {
-                    _selectedBlock.Slot?.Remove(_selectedBlock);
+                    _selectedBlock.Slot.Item1?.Remove(_selectedBlock, _selectedBlock.Slot.Item2);
                     _selectedBlock.ResetPosition();
                 }
+
+                _selectedBlock = null;
+                _hoveredSlot = null;
+                _hoveredSlotPart = null;
             }
         }
 
@@ -97,18 +105,35 @@ namespace Interaction
 
         private void UpdateSlotSelection()
         {
-            var layer = _selectedBlock.BlockType == BlockType.Full ? _fullSlotLayer : _partialSlotLayer;
+            var layer = _selectedBlock.IsFull ? _fullSlotLayer : _partialSlotLayer;
 
             if (Physics.Raycast(_camera.ScreenPointToRay(_controlsManager.PointerPosition), out var hitInfo, Mathf.Infinity, layer))
             {
+                if (hitInfo.collider.transform != _hoveredSlotPart)
+                {
+                    _hoveredSlot?.Remove(_selectedBlock, _hoveredSlotPart);
+                }
+
+                _hoveredSlotPart = hitInfo.collider.transform;
+
                 _hoveredSlot = hitInfo.collider.GetComponentInParent<FractionSlot>();
-                _hoveredSlot.Put(_selectedBlock, SlotPlacementType.Hover);
+                _hoveredSlot.Put(_selectedBlock, _hoveredSlotPart, SlotPlacementType.Hover);
             }
             else if (_hoveredSlot)
             {
                 _hoveredSlot.SetToLastContent();
                 _hoveredSlot = null;
+                _hoveredSlotPart = null;
             }
+        }
+
+        private Vector3 GetMousePositionOnGroundPlane()
+        {
+            Ray ray = _camera.ScreenPointToRay(_controlsManager.PointerPosition);
+
+            _groundPlane.Raycast(_camera.ScreenPointToRay(_controlsManager.PointerPosition), out var hitDistance);
+
+            return ray.GetPoint(hitDistance);
         }
     }
 }

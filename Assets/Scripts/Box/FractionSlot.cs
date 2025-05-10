@@ -53,18 +53,11 @@ namespace Box
             return IsValid ? GetNumerator() / (float)GetDenominator() : -1;
         }
 
-        public void Put(AFractionBlock block, SlotPlacementType placementType)
+        public void Put(AFractionBlock block, Transform slot, SlotPlacementType placementType)
         {
-            Vector3 position = transform.TransformPoint(block.BlockType switch
-            {
-                BlockType.Numerator => _numeratorSlot.position,
-                BlockType.Denominator => _denominatorSlot.position,
-                _ => _fullSlot.position
-            });
-            
-            block.MoveTo(position, true);
+            BlockType blockType = block.IsFull ? BlockType.Full : slot == _numeratorSlot ? BlockType.Numerator : BlockType.Denominator;
 
-            if (!HasRoom(block.BlockType))
+            if (_content.ForType(blockType) != block && !HasRoom(blockType))
             {
                 _content.Numerator?.ResetPosition();
                 _content.Denominator?.ResetPosition();
@@ -78,26 +71,38 @@ namespace Box
                 _content = new SlotContent();
             }
 
-            _content.Set(block);
+            _content.Set(block, blockType);
+
+            if (placementType == SlotPlacementType.Place)
+            {
+                Vector3 position = blockType switch
+                {
+                    BlockType.Numerator => _numeratorSlot.position,
+                    BlockType.Denominator => _denominatorSlot.position,
+                    _ => _fullSlot.position
+                };
+
+                block.MoveTo(position, true);
+
+                _lastContent = new SlotContent();
+            }
         }
 
         public void SetToLastContent()
         {
-            _content.Numerator?.ResetPosition();
-            _content.Denominator?.ResetPosition();
-            _content.FullFraction?.ResetPosition();
-            
             _content = _lastContent;
             _lastContent = new SlotContent();
-            
-            if (_content.Numerator) Put(_content.Numerator, SlotPlacementType.Place);
-            if (_content.Denominator) Put(_content.Denominator, SlotPlacementType.Place);
-            if (_content.FullFraction) Put(_content.FullFraction, SlotPlacementType.Place);
+
+            if (_content.Numerator) Put(_content.Numerator, _numeratorSlot, SlotPlacementType.Place);
+            if (_content.Denominator) Put(_content.Denominator, _denominatorSlot, SlotPlacementType.Place);
+            if (_content.FullFraction) Put(_content.FullFraction, _fullSlot, SlotPlacementType.Place);
         }
 
-        public void Remove(AFractionBlock block)
+        public void Remove(AFractionBlock block, Transform slot)
         {
-            switch (block.BlockType)
+            BlockType blockType = block.IsFull ? BlockType.Full : slot == _numeratorSlot ? BlockType.Numerator : BlockType.Denominator;
+
+            switch (blockType)
             {
                 case BlockType.Numerator:
                     _content.Numerator = null;
@@ -113,7 +118,11 @@ namespace Box
 
         private bool HasRoom(BlockType blockType)
         {
-            return !_content.FullFraction && !_content.ForType(blockType);
+            if (_content.FullFraction) return false;
+
+            if (blockType == BlockType.Full) return !_content.Numerator && !_content.Denominator;
+
+            return !_content.ForType(blockType);
         }
     }
 }

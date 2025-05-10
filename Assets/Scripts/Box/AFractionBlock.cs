@@ -1,5 +1,3 @@
-using System;
-using Fractions;
 using UnityEngine;
 
 namespace Box
@@ -10,11 +8,11 @@ namespace Box
         private FractionBlockAnimationController _animationController;
 
         [SerializeField]
-        private BlockType _blockType;
+        private bool _isFull;
 
-        public BlockType BlockType => _blockType;
+        public bool IsFull => _isFull;
 
-        public FractionSlot Slot { get; set; }
+        public (FractionSlot, Transform) Slot { get; set; }
 
         private Vector3 _initialPosition;
 
