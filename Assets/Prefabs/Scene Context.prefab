@@ -77,3 +77,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df0684667d2134a4baefe7a461447b9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fractionBlockInteractor: {fileID: 8104019343215132929, guid: 31d91d93c029a5d47ab9022744cd49b8, type: 3}
