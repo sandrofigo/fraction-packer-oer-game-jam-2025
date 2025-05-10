@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 
-public class AscParser : IParser
+public class PlusLesserParser
 {
     // examples
-    // n,n;n,n;n,n       => NULL/NULL < NULL/NULL < NULL/NULL
-    // n,2;n,n;n,n       => NULL/2    < NULL/NULL < NULL/NULL
-    // 1,2;5,n;n,6       =>    1/2    <    5/NULL < NULL/6
+    // n,n;n,n;n,n       => NULL/NULL = NULL/NULL = NULL/NULL
+    // n,2;n,n;n,n       => NULL/2    = NULL/NULL = NULL/NULL
+    // 1,2;5,n;n,6       =>    1/2    =    5/NULL = NULL/6
     public bool TryParse(string genDataStr, ref ParseData parseData)
     {
         string[] fractionStrings = genDataStr.Split(ParseUtils.FRACTION_SERPARATOR);
@@ -19,7 +19,7 @@ public class AscParser : IParser
 
         parseData.operators = new List<OperatorType>();
         for (int i = 0; i < (parseData.amountFractions - 1); i++)
-            parseData.operators.Add(OperatorType.Less);
+            parseData.operators.Add(OperatorType.Equal);
 
         return true;
     }

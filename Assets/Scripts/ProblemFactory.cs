@@ -17,7 +17,8 @@ public enum OperatorType
     LessOrEqual,
     Equal,
     GreaterOrEqual,
-    Greater
+    Greater,
+    Plus
 }
 
 public struct ParseData
