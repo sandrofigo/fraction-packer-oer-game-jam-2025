@@ -27,6 +27,7 @@ namespace Box
         private SlotContent _lastContent;
 
         public bool IsValid => _content.FullFraction || (_content.Numerator && _content.Denominator);
+        public bool IsEmpty => !_content.HasContent;
 
         public int GetNumerator()
         {
@@ -121,7 +122,7 @@ namespace Box
             if (_content.FullFraction) return false;
 
             if (blockType == BlockType.Full) return !_content.Numerator && !_content.Denominator;
-
+            
             return !_content.ForType(blockType);
         }
     }

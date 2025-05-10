@@ -109,19 +109,33 @@ namespace Interaction
 
             if (Physics.Raycast(_camera.ScreenPointToRay(_controlsManager.PointerPosition), out var hitInfo, Mathf.Infinity, layer))
             {
-                if (hitInfo.collider.transform != _hoveredSlotPart)
+                var hoveredSlot = hitInfo.collider.GetComponentInParent<FractionSlot>();
+                var hoveredSlotPart = hitInfo.collider.transform;
+
+                if (_hoveredSlotPart == hoveredSlotPart && _hoveredSlot == hoveredSlot)
+                    return;
+
+                _hoveredSlot?.Remove(_selectedBlock, _hoveredSlotPart);
+
+                if (_hoveredSlotPart != hoveredSlotPart && _hoveredSlot && _hoveredSlot.IsEmpty)
                 {
-                    _hoveredSlot?.Remove(_selectedBlock, _hoveredSlotPart);
+                    _hoveredSlot.SetToLastContent();
                 }
 
-                _hoveredSlotPart = hitInfo.collider.transform;
+                _hoveredSlotPart = hoveredSlotPart;
+                _hoveredSlot = hoveredSlot;
 
-                _hoveredSlot = hitInfo.collider.GetComponentInParent<FractionSlot>();
                 _hoveredSlot.Put(_selectedBlock, _hoveredSlotPart, SlotPlacementType.Hover);
             }
             else if (_hoveredSlot)
             {
-                _hoveredSlot.SetToLastContent();
+                _hoveredSlot.Remove(_selectedBlock, _hoveredSlotPart);
+
+                if (_hoveredSlot.IsEmpty)
+                {
+                    _hoveredSlot.SetToLastContent();
+                }
+
                 _hoveredSlot = null;
                 _hoveredSlotPart = null;
             }
