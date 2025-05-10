@@ -10,3 +10,4 @@ A game about fractions.
 - DOTween ([Assets/Plugins/Demigiant/DOTween/readme.txt](Assets/Plugins/Demigiant/DOTween/readme.txt))
 - Modak Font ([Assets/Fonts/Modak/OFL.txt](Assets/Fonts/Modak/OFL.txt))
 - Cascadia Mono Font ([Assets/Fonts/Cascadia_Mono/OFL.txt](Assets/Fonts/Cascadia_Mono/OFL.txt))
+- TMPEffects ([https://github.com/Luca3317/TMPEffects/blob/main/LICENSE.md](https://github.com/Luca3317/TMPEffects/blob/main/LICENSE.md))
