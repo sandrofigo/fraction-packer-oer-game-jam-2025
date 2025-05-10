@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class PlusLesserParser
+public class EqualParser
 {
     // examples
     // n,n;n,n;n,n       => NULL/NULL = NULL/NULL = NULL/NULL
