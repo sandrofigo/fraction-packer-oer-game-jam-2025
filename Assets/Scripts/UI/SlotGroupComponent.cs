@@ -22,11 +22,11 @@ namespace UI
             }
         }
 
-        public SlotComponent SpawnSlot(int topValue, int bottomValue)
+        public SlotComponent SpawnSlot(int? topValue, int? bottomValue)
         {
             var component = _diContainer.InstantiatePrefabForComponent<SlotComponent>(_slotPrefab, _container);
-            component.SetValueTop(topValue);
-            component.SetValueTop(bottomValue);
+            component.SetValueTop(topValue.HasValue ? topValue.Value.ToString() : "");
+            component.SetValueBottom(bottomValue.HasValue ? bottomValue.Value.ToString() : "");
             return component;
         }
 

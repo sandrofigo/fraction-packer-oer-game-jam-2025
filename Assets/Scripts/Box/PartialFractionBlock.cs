@@ -7,7 +7,9 @@ namespace Box
     {
         [SerializeField]
         private FractionComponent _fractionComponent;
-        
+
+        public FractionComponent FractionComponent => _fractionComponent;
+
         public int Value => _fractionComponent.Value;
     }
 }

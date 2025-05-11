@@ -8,14 +8,14 @@ namespace UI
         [SerializeField] private TextMeshProUGUI _valueTop;
         [SerializeField] private TextMeshProUGUI _valueBottom;
 
-        public void SetValueTop(int value)
+        public void SetValueTop(string value)
         {
-            _valueTop.text = value.ToString();
+            _valueTop.text = value;
         }
 
-        public void SetValueBottom(int value)
+        public void SetValueBottom(string value)
         {
-            _valueBottom.text = value.ToString();
+            _valueBottom.text = value;
         }
     }
 }

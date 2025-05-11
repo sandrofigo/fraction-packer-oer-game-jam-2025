@@ -29,9 +29,8 @@ public struct ParseData
 }
 
 
-public class ProblemFactory : MonoBehaviour
+public class ProblemFactory
 {
-    [SerializeField]
     private Dictionary<char, ProblemType> problemTypeTokens = new Dictionary<char, ProblemType>()
     {
         { 'A', ProblemType.ASC },
@@ -63,7 +62,7 @@ public class ProblemFactory : MonoBehaviour
             Debug.LogWarning("No parser seleceted, aborting...");
             return null;
         }
-        else if(!parser.TryParse(data, ref parseData))
+        else if(!parser.TryParse(genDataString, ref parseData))
         {
             Debug.LogWarning("Parser failed, aborting...");
             return null;
