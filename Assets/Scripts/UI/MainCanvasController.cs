@@ -32,7 +32,7 @@ namespace UI
 
         private void HideTitleScreen()
         {
-            _titleScreenCanvasGroup.DOFade(0, 1f)
+            _titleScreenCanvasGroup.DOFade(0, 0.35f)
                 .OnComplete(() =>
                 {
                     _titleScreenCanvasGroup.gameObject.SetActive(false);
