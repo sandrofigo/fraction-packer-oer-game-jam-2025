@@ -64,9 +64,11 @@ namespace Fractions
             return block;
         }
 
-        public void CreateSlot(Vector3 position)
+        public void CreateSlot(Vector3 position, bool isNumeratorAvailable, bool isDenominatorAvailable)
         {
             FractionSlot slot = _container.InstantiatePrefabForComponent<FractionSlot>(_fractionSlotPrefab);
+            
+            slot.Setup(isNumeratorAvailable, isDenominatorAvailable);;
 
             slot.transform.position = position;
         }

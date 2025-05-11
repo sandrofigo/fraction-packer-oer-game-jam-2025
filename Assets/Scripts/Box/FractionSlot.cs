@@ -20,6 +20,16 @@ namespace Box
         public bool IsValid => _content.FullFraction || (_content.Numerator && _content.Denominator);
         public bool IsEmpty => !_content.HasContent;
 
+        public void Setup(bool isNumeratorAvailable, bool isDenominatorAvailable)
+        {
+            _numeratorSlot.gameObject.SetActive(isNumeratorAvailable);
+            _denominatorSlot.gameObject.SetActive(isDenominatorAvailable);
+            _fullSlot.gameObject.SetActive(isNumeratorAvailable && isDenominatorAvailable);
+            
+            _content = new SlotContent();
+            _lastContent = new SlotContent();
+        }
+
         public int GetNumerator()
         {
             if (!IsValid)

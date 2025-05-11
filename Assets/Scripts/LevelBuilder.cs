@@ -20,7 +20,7 @@ public class LevelBuilder : MonoBehaviour
 
     private readonly ProblemFactory _factory = new();
 
-    private readonly List<(Fraction, SlotComponent)> fractionSlotPairs = new();
+    private readonly List<(Fraction, SlotComponent)> _fractionSlotPairs = new();
 
     private void Awake()
     {
@@ -37,7 +37,7 @@ public class LevelBuilder : MonoBehaviour
         Problem problem = _factory.CreateProblem(problemString);
 
         _slotGroup.ClearSlots();
-        fractionSlotPairs.Clear();
+        _fractionSlotPairs.Clear();
 
         for (var i = 0; i < problem.Fractions.Length; i++)
         {
@@ -45,7 +45,7 @@ public class LevelBuilder : MonoBehaviour
 
             // slot
             SlotComponent slotComponent = _slotGroup.SpawnSlot(fraction.Numerator == 0 ? null : fraction.Numerator, fraction.Denominator == 0 ? null : fraction.Denominator);
-            fractionSlotPairs.Add((fraction, slotComponent));
+            _fractionSlotPairs.Add((fraction, slotComponent));
 
             // fraction block
             if (fraction is { Numerator: 0, Denominator: 0 })
@@ -74,9 +74,9 @@ public class LevelBuilder : MonoBehaviour
         yield return null;
         
         // slots
-        foreach ((Fraction, SlotComponent) pair in fractionSlotPairs)
+        foreach ((Fraction, SlotComponent) pair in _fractionSlotPairs)
         {
-            _fractionBuilder.CreateSlot(pair.Item2.GetComponent<RectTransform>().position);
+            _fractionBuilder.CreateSlot(pair.Item2.GetComponent<RectTransform>().position, pair.Item1.Numerator == 0, pair.Item1.Denominator == 0);
         }
     }
 
