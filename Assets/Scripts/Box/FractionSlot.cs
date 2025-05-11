@@ -2,6 +2,7 @@ using System;
 using Fractions;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace Box
 {
@@ -86,7 +87,7 @@ namespace Box
                 _lastContent = new SlotContent();
                 
                 FractionBlockPlaced?.Invoke();
-                _audioManager.PlayClip("stone_drop", 1f, 1f);
+                _audioManager.PlayClip("knock2", 0.5f, Random.Range(0.9f, 1.1f));
             }
         }
 
