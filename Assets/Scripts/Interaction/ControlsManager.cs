@@ -10,6 +10,7 @@ namespace Interaction
         
         public event Action<InputAction.CallbackContext> Interact;
         public event Action<InputAction.CallbackContext> AnyKey;
+        public event Action<InputAction.CallbackContext> Restart;
 
         private readonly Controls _controls;
 
@@ -35,6 +36,11 @@ namespace Interaction
         public void OnAnyKey(InputAction.CallbackContext context)
         {
             AnyKey?.Invoke(context);
+        }
+
+        public void OnRestart(InputAction.CallbackContext context)
+        {
+            Restart?.Invoke(context);
         }
     }
 }
