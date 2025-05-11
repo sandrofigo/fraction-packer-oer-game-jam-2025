@@ -9,6 +9,7 @@ namespace Interaction
         public Vector3 PointerPosition => Mouse.current.position.ReadValue();
         
         public event Action<InputAction.CallbackContext> Interact;
+        public event Action<InputAction.CallbackContext> AnyKey;
 
         private readonly Controls _controls;
 
@@ -29,6 +30,11 @@ namespace Interaction
         public void OnInteract(InputAction.CallbackContext context)
         {
             Interact?.Invoke(context);
+        }
+
+        public void OnAnyKey(InputAction.CallbackContext context)
+        {
+            AnyKey?.Invoke(context);
         }
     }
 }

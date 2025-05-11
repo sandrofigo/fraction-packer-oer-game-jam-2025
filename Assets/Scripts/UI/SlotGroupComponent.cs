@@ -14,6 +14,11 @@ namespace UI
         [SerializeField] private GameObject _slotPrefab;
         [SerializeField] private GameObject _slotSymbolPrefab;
 
+        private void Awake()
+        {
+            ClearSlots();
+        }
+
         public void ClearSlots()
         {
             foreach (Transform child in _container.transform)

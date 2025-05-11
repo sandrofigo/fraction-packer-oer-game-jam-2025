@@ -26,6 +26,8 @@ namespace Installers
             
             // Interaction
             Container.Bind<FractionBlockInteractor>().FromComponentInNewPrefab(_fractionBlockInteractor).AsSingle().NonLazy();
+            
+            Container.Bind<GameManager>().FromComponentInHierarchy().AsSingle().NonLazy();
         }
     }
 }
