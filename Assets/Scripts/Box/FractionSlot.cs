@@ -16,7 +16,7 @@ namespace Box
 
         [SerializeField]
         private Transform _fullSlot;
-        
+
         [Inject]
         private readonly AudioManager _audioManager;
 
@@ -33,7 +33,7 @@ namespace Box
             _numeratorSlot.gameObject.SetActive(isNumeratorAvailable);
             _denominatorSlot.gameObject.SetActive(isDenominatorAvailable);
             _fullSlot.gameObject.SetActive(isNumeratorAvailable && isDenominatorAvailable);
-            
+
             _content = new SlotContent();
             _lastContent = new SlotContent();
         }
@@ -59,9 +59,23 @@ namespace Box
 
             if (_content.ForType(blockType) != block && !HasRoom(blockType))
             {
-                _content.Numerator?.ResetPosition();
-                _content.Denominator?.ResetPosition();
-                _content.FullFraction?.ResetPosition();
+                if (_content.Numerator != null)
+                {
+                    _content.Numerator.Slot = default;
+                    _content.Numerator.ResetPosition();
+                }
+
+                if (_content.Denominator != null)
+                {
+                    _content.Denominator.Slot = default;
+                    _content.Denominator.ResetPosition();
+                }
+
+                if (_content.FullFraction != null)
+                {
+                    _content.FullFraction.Slot = default;
+                    _content.FullFraction.ResetPosition();
+                }
 
                 if (placementType == SlotPlacementType.Hover)
                 {
@@ -86,7 +100,7 @@ namespace Box
                 block.MoveTo(position, Vector3.zero, true);
 
                 _lastContent = new SlotContent();
-                
+
                 FractionBlockPlaced?.Invoke();
                 _audioManager.PlayClip("knock2", 0.6f, Random.Range(0.9f, 1.1f));
             }
@@ -118,7 +132,7 @@ namespace Box
                     _content.FullFraction = null;
                     break;
             }
-            
+
             block.Slot = default;
         }
 

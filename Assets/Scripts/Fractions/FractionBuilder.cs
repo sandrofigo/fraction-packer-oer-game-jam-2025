@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Box;
 using DG.Tweening;
 using UnityEngine;
@@ -159,16 +160,17 @@ namespace Fractions
 
             Sequence moveSequence = DOTween.Sequence();
 
-            for (var i = _spawnedBlocks.Count - 1; i >= 0; i--)
+            var blocks = _spawnedBlocks.OrderBy(b => b.transform.position.x).ToList();
+            for (var i = blocks.Count - 1; i >= 0; i--)
             {
-                _spawnedBlocks[i].DisableColliders();
+                blocks[i].DisableColliders();
 
-                int reversedIndex = _spawnedBlocks.Count - i - 1;
+                int reversedIndex = blocks.Count - i - 1;
 
                 Sequence blockSequence = DOTween.Sequence()
-                    .AppendInterval(reversedIndex * Random.Range(0.07f, 0.14f))
-                    .Append(_spawnedBlocks[i].transform.DORotate(new Vector3(0, -3, 0), 0.6f))
-                    .Join(_spawnedBlocks[i].transform
+                    .AppendInterval(reversedIndex * Random.Range(0.07f, 0.1f))
+                    .Append(blocks[i].transform.DORotate(new Vector3(0, -3, 0), 0.6f))
+                    .Join(blocks[i].transform
                         .DOMoveX(_clearTargetX, _clearMoveDuration)
                         .SetEase(_clearMoveEase)
                         .SetDelay(0.1f));
