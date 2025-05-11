@@ -45,6 +45,7 @@ public class LevelBuilder : MonoBehaviour
     public void BuilderProblem(string problemString)
     {
         _activeProblem = ProblemFactory.Instance.CreateProblem(problemString);
+        Debug.Log("Current Problem of Type <" + _activeProblem.Type + ">");
         _startFractions = _activeProblem.Fractions.ToList();
 
         _slotGroup.ClearSlots();

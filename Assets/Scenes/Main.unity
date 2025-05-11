@@ -856,6 +856,10 @@ PrefabInstance:
       propertyPath: useTxtFile
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2391990126149206942, guid: 42b245f824a7ef442b0eec015ac7747a, type: 3}
+      propertyPath: currentDataIdx
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8139476532949966566, guid: 42b245f824a7ef442b0eec015ac7747a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

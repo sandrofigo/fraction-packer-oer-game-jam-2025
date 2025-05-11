@@ -16,6 +16,8 @@ public static class OperatorDisplayValue
                 return ">=";
             case OperatorType.LessOrEqual:
                 return "<=";
+            case OperatorType.Plus:
+                return "+";
             default:
                 throw new ArgumentOutOfRangeException();
         }
