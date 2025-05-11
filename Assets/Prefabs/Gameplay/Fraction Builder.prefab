@@ -54,3 +54,9 @@ MonoBehaviour:
   _maxRandomRotationAngle: 7
   _gap: 0.75
   _animationDelay: 0.1
+  _clearAnimationDelay: 0.25
+  _clearTargetX: 8
+  _clearMoveDuration: 0.75
+  _clearMoveEase: 2
+  _clearJumpDuration: 0.6
+  _clearJumpEase: 6

@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
 using Box;
+using DG.Tweening;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace Fractions
 {
@@ -40,12 +43,39 @@ namespace Fractions
         [SerializeField]
         private float _animationDelay = 0.1f;
 
+        [Header("Clear Animation")]
+        [SerializeField]
+        private float _clearAnimationDelay = 0.25f;
+
+        [SerializeField]
+        private float _clearTargetX = 5f;
+
+        [SerializeField]
+        private float _clearMoveDuration = 3f;
+
+        [SerializeField]
+        private Ease _clearMoveEase = Ease.InSine;
+
+        [SerializeField]
+        private float _clearJumpDuration = 0.5f;
+
+        [SerializeField]
+        private Ease _clearJumpEase = Ease.OutSine;
+
         private int _spawnAmount;
 
         private List<AFractionBlock> _spawnedBlocks = new();
         private List<FractionSlot> _spawnedSlots = new();
-        
+
+        private Sequence _clearBoardSequence;
+
         public IReadOnlyList<FractionSlot> SpawnedSlots => _spawnedSlots;
+        public IReadOnlyList<AFractionBlock> SpawnedBlocks => _spawnedBlocks;
+
+        private void OnDestroy()
+        {
+            _clearBoardSequence.Kill();
+        }
 
         public void Clear()
         {
@@ -58,10 +88,12 @@ namespace Fractions
             {
                 Destroy(slot.gameObject);
             }
-            
+
             _spawnedBlocks.Clear();
             _spawnedSlots.Clear();
             _spawnAmount = 0;
+
+            _clearBoardSequence?.Kill();
         }
 
         public FullFractionBlock CreateFullFraction(int numerator, int denominator, int problemFractionAmount)
@@ -94,10 +126,54 @@ namespace Fractions
             slot.Setup(isNumeratorAvailable, isDenominatorAvailable);
 
             slot.transform.position = position;
-            
+
             _spawnedSlots.Add(slot);
 
             return slot;
+        }
+
+        public void PlayClearBoardAnimation(Action onComplete)
+        {
+            _clearBoardSequence.Kill();
+
+            _clearBoardSequence = DOTween.Sequence()
+                .AppendInterval(_clearAnimationDelay);
+
+            Sequence jumpSequence = DOTween.Sequence();
+
+            foreach (var block in _spawnedBlocks)
+            {
+                Sequence jumpBlockSequence = DOTween.Sequence();
+
+                if (block.Slot.Item1)
+                {
+                    jumpBlockSequence.Append(block.transform.DOMoveY(.6f, _clearJumpDuration).SetEase(_clearJumpEase));
+                    jumpBlockSequence.AppendInterval(0.05f);
+                    jumpBlockSequence.Append(block.transform.DOMoveY(0f, _clearJumpDuration).SetEase(_clearJumpEase));
+                }
+
+                jumpSequence.Join(jumpBlockSequence);
+            }
+
+            _clearBoardSequence.Append(jumpSequence);
+
+            Sequence moveSequence = DOTween.Sequence();
+
+            for (var i = 0; i < _spawnedBlocks.Count; i++)
+            {
+                _spawnedBlocks[i].DisableColliders();
+
+                int reverseIndex = _spawnedBlocks.Count - i - 1;
+
+                moveSequence.Join(_spawnedBlocks[i].transform
+                        .DOMoveX(_clearTargetX, _clearMoveDuration)
+                        .SetEase(_clearMoveEase))
+                    .SetDelay(Random.Range(0.1f, 0.2f));
+            }
+
+            _clearBoardSequence.Append(moveSequence);
+
+            _clearBoardSequence.AppendCallback(onComplete.Invoke);
         }
 
         private void SetupFraction(AFractionBlock block, int fractionAmount)

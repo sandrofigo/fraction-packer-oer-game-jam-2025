@@ -139,7 +139,7 @@ public class LevelBuilder : MonoBehaviour
         }
         else
         {
-            _gameManager.RestartGame();
+            _fractionBuilder.PlayClearBoardAnimation(() => _gameManager.RestartGame());
         }
     }
 

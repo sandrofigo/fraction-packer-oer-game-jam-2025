@@ -81,7 +81,8 @@ namespace Box
                     _ => _fullSlot.position
                 };
 
-                block.MoveTo(position, true);
+                block.Slot = (this, slot);
+                block.MoveTo(position, Vector3.zero, true);
 
                 _lastContent = new SlotContent();
                 
@@ -116,6 +117,8 @@ namespace Box
                     _content.FullFraction = null;
                     break;
             }
+            
+            block.Slot = default;
         }
 
         public void DoInvalidShakeAnimation()

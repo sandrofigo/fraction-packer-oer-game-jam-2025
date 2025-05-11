@@ -90,11 +90,6 @@ namespace Interaction
                 }
                 else
                 {
-                    if (_selectedBlock.Slot.Item1)
-                    {
-                        _selectedBlock.Slot.Item1.Remove(_selectedBlock, _selectedBlock.Slot.Item2);
-                    }
-
                     _selectedBlock.ResetPosition();
                 }
 

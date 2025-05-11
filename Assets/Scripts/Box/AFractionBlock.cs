@@ -72,5 +72,13 @@ namespace Box
         {
             _animationController.DoInvalidShakeAnimation();
         }
+
+        public void DisableColliders()
+        {
+            foreach (var c in GetComponentsInChildren<Collider>())
+            {
+                c.enabled = false;
+            }
+        }
     }
 }
