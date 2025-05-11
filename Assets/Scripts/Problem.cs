@@ -17,6 +17,7 @@ public class Problem
     private int amountOperations;
     public Fraction[] Fractions { get; private set; } // parsed Data
     public OperatorType[] Operators { get; private set; } // parsed Data
+    public List<Fraction> UserFractions { get; private set; } // parsed Data
 
     private ISolver solver;
     
@@ -39,6 +40,8 @@ public class Problem
         {
             Operators.SetValue(data.operators[i], i);
         }
+
+        UserFractions = data.userFractions;
     }
 
     public void SetAllFractions(List<Fraction> newFractions)
