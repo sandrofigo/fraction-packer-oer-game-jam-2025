@@ -5,12 +5,27 @@ using System.Text;
 
 public class ProblemDataGenerator : MonoBehaviour
 {
-    public List<string> data = new List<string>();
+    private int currentDataIdx = 0;
+    private List<string> data = new List<string>();
     private int countProblemsPerToken = 10;
     ProblemFactory problemFactory;
 
     private List<Tuple<int, int>> exampleFractions = new List<Tuple<int, int>>();
-    
+
+    public static ProblemDataGenerator Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
     private void Start()
     {
         for(int i = 1; i < 9; i++)
@@ -23,10 +38,9 @@ public class ProblemDataGenerator : MonoBehaviour
             }
         }
 
-        problemFactory = new ProblemFactory();
-        foreach(var token in problemFactory.ProblemTypeTokens)
+        foreach(var token in ProblemFactory.Instance.ProblemTypeTokens)
         {
-            if (token == 'E')
+            if (token == 'E' || token == 'P')
                 continue;
 
             Debug.Log("Start with token <" + token.ToString() + ">");
@@ -108,5 +122,12 @@ public class ProblemDataGenerator : MonoBehaviour
                 data.Add(sb.ToString());
             }
         }
+    }
+
+    public string GetNextProblem()
+    {
+        string next = data[currentDataIdx % data.Count];
+        currentDataIdx++;
+        return next;
     }
 }
