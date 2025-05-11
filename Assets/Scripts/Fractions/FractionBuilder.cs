@@ -143,32 +143,37 @@ namespace Fractions
 
             foreach (var block in _spawnedBlocks)
             {
-                Sequence jumpBlockSequence = DOTween.Sequence();
-
                 if (block.Slot.Item1)
                 {
+                    Sequence jumpBlockSequence = DOTween.Sequence();
+
                     jumpBlockSequence.Append(block.transform.DOMoveY(.6f, _clearJumpDuration).SetEase(_clearJumpEase));
                     jumpBlockSequence.AppendInterval(0.05f);
                     jumpBlockSequence.Append(block.transform.DOMoveY(0f, _clearJumpDuration).SetEase(_clearJumpEase));
-                }
 
-                jumpSequence.Join(jumpBlockSequence);
+                    jumpSequence.Join(jumpBlockSequence);
+                }
             }
 
             _clearBoardSequence.Append(jumpSequence);
 
             Sequence moveSequence = DOTween.Sequence();
 
-            for (var i = 0; i < _spawnedBlocks.Count; i++)
+            for (var i = _spawnedBlocks.Count - 1; i >= 0; i--)
             {
                 _spawnedBlocks[i].DisableColliders();
 
-                int reverseIndex = _spawnedBlocks.Count - i - 1;
+                int reversedIndex = _spawnedBlocks.Count - i - 1;
 
-                moveSequence.Join(_spawnedBlocks[i].transform
+                Sequence blockSequence = DOTween.Sequence()
+                    .AppendInterval(reversedIndex * Random.Range(0.07f, 0.14f))
+                    .Append(_spawnedBlocks[i].transform.DORotate(new Vector3(0, -3, 0), 0.6f))
+                    .Join(_spawnedBlocks[i].transform
                         .DOMoveX(_clearTargetX, _clearMoveDuration)
-                        .SetEase(_clearMoveEase))
-                    .SetDelay(Random.Range(0.1f, 0.2f));
+                        .SetEase(_clearMoveEase)
+                        .SetDelay(0.1f));
+
+                moveSequence.Join(blockSequence);
             }
 
             _clearBoardSequence.Append(moveSequence);
