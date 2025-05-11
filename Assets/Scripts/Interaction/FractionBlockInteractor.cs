@@ -65,6 +65,7 @@ namespace Interaction
                 _selectedBlock = _hoveredBlock;
                 _grabOffset = _selectedBlock.transform.position - GetMousePositionOnGroundPlane();
                 _hoveredBlock.Select();
+                _hoveredBlock = null;
             }
             else if (context.canceled)
             {

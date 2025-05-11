@@ -9,7 +9,7 @@ public class AudioManager : MonoBehaviour
     {
         var obj = new GameObject
         {
-            name = soundName
+            name = $"AudioSource ({soundName})"
         };
 
         var audioSource = obj.AddComponent<AudioSource>();
@@ -19,6 +19,7 @@ public class AudioManager : MonoBehaviour
         audioSource.pitch = pitch;
         audioSource.spatialBlend = 0;
         audioSource.loop = false;
-        Destroy(obj, clip.length * 2);
+        audioSource.Play();
+        Destroy(obj, Mathf.Max(clip.length * 2, 3f));
     }
 }

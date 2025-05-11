@@ -42,15 +42,19 @@ namespace Box
         [SerializeField]
         private float _invalidShakeDuration = 0.15f;
 
+        [SerializeField] private Transform _visuals;
+        
         private Sequence _moveSequence;
         private Sequence _scaleSequence;
         private Sequence _rotateSequence;
+        private Sequence _visualsMoveSequence;
 
         private void OnDestroy()
         {
             _moveSequence.Kill();
             _scaleSequence.Kill();
             _rotateSequence.Kill();
+            _visualsMoveSequence.Kill();
         }
 
         public void MoveTo(Vector3 position)
@@ -65,12 +69,16 @@ namespace Box
         {
             _moveSequence?.Kill();
             _rotateSequence.Kill();
+            _visualsMoveSequence.Kill();
 
             _moveSequence = DOTween.Sequence()
                 .Append(transform.DOMove(position, _moveDuration).SetEase(_moveEase));
 
             _rotateSequence = DOTween.Sequence()
                 .Append(transform.DORotate(rotation, _moveDuration).SetEase(_moveEase));
+            
+            _visualsMoveSequence = DOTween.Sequence()
+                .Append(_visuals.DOLocalMoveY(0, _moveDuration));
         }
 
         public void SetHover(bool isHovered)
@@ -84,15 +92,19 @@ namespace Box
         {
             _scaleSequence.Kill();
             _rotateSequence.Kill();
+            _visualsMoveSequence.Kill();
 
-            transform.localScale = Vector3.one * 0.7f;
+            // transform.localScale = Vector3.one * 0.7f;
 
             _scaleSequence = DOTween.Sequence()
                 .Append(transform.DOScale(Vector3.one, _selectJiggleDuration))
-                .SetEase(Ease.OutElastic, _selectJiggleAmplitude, _selectJigglePeriod);
+                .SetEase(Ease.OutBack, _selectJiggleAmplitude, _selectJigglePeriod);
             
             _rotateSequence = DOTween.Sequence()
                 .Append(transform.DORotate(new Vector3(0f, 0f, 0f), _selectJiggleDuration));
+
+            _visualsMoveSequence = DOTween.Sequence()
+                .Append(_visuals.DOLocalMoveY(0.2f, _selectJiggleDuration));
         }
 
         public void DoInvalidShakeAnimation()

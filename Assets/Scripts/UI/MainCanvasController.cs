@@ -34,7 +34,7 @@ namespace UI
 
             _restartButton.onClick.AddListener(() =>
             {
-                _audioManager.PlayClip("knock", 1, Random.Range(0.9f, 1.1f));
+                _audioManager.PlayClip("click", 1, Random.Range(0.9f, 1.1f));
                 _gameManager.RestartGame();
             });
         }

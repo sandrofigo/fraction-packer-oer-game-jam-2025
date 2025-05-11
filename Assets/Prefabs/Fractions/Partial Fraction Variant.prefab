@@ -358,6 +358,10 @@ PrefabInstance:
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 1449645546730829186, guid: eedf9136cbfb1fc4bab3d4381323b8aa, type: 3}
+      propertyPath: _visuals
+      value: 
+      objectReference: {fileID: 6561616263408182281}
     - target: {fileID: 4188141254941924245, guid: eedf9136cbfb1fc4bab3d4381323b8aa, type: 3}
       propertyPath: m_Name
       value: Partial Fraction Variant
@@ -426,7 +430,7 @@ MonoBehaviour:
   - {fileID: 6055958326859586777}
   - {fileID: 5543871223408026609}
   - {fileID: 8592463151706895386}
-  _enableProbability: 0.5
+  _enableProbability: 0.4
 --- !u!1 &6449198795153351595 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4188141254941924245, guid: eedf9136cbfb1fc4bab3d4381323b8aa, type: 3}
@@ -447,6 +451,11 @@ MonoBehaviour:
   _animationController: {fileID: 8611234997645921724}
   _isFull: 0
   _fractionComponent: {fileID: 4924596536435222364}
+--- !u!4 &6561616263408182281 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4076011996168330295, guid: eedf9136cbfb1fc4bab3d4381323b8aa, type: 3}
+  m_PrefabInstance: {fileID: 7178575536242227262}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &6916116166373378066 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4352051087939956780, guid: eedf9136cbfb1fc4bab3d4381323b8aa, type: 3}
