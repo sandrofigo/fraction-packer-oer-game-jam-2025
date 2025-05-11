@@ -19,7 +19,7 @@ namespace Interaction
 
         [Inject]
         private readonly ControlsManager _controlsManager;
-        
+
         [Inject]
         private readonly GameManager _gameManager;
 
@@ -39,7 +39,7 @@ namespace Interaction
         {
             _camera = Camera.main;
             _controlsManager.Interact += OnInteract;
-            
+
             _gameManager.GameStartEvent += OnGameStart;
         }
 
@@ -90,7 +90,11 @@ namespace Interaction
                 }
                 else
                 {
-                    _selectedBlock.Slot.Item1?.Remove(_selectedBlock, _selectedBlock.Slot.Item2);
+                    if (_selectedBlock.Slot.Item1)
+                    {
+                        _selectedBlock.Slot.Item1.Remove(_selectedBlock, _selectedBlock.Slot.Item2);
+                    }
+
                     _selectedBlock.ResetPosition();
                 }
 
@@ -112,7 +116,7 @@ namespace Interaction
                     {
                         _hoveredBlock.SetHover(false);
                     }
-                    
+
                     _hoveredBlock = hoveredBlock;
                     _hoveredBlock.SetHover(true);
                 }
