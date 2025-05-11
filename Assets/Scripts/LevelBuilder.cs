@@ -19,8 +19,6 @@ public class LevelBuilder : MonoBehaviour
     [Inject]
     private readonly GameManager _gameManager;
 
-    private readonly ProblemFactory _factory = new();
-
     private readonly List<(Fraction, SlotComponent)> _fractionSlotPairs = new();
 
     private Problem _activeProblem;
@@ -41,12 +39,12 @@ public class LevelBuilder : MonoBehaviour
         _slotGroup.ClearSlots();
         _fractionBuilder.Clear();
 
-        BuilderProblem("An,n;2,n;n,5-3,n;5,8;3,4;n,9;2,6");
+        BuilderProblem(ProblemDataGenerator.Instance.GetNextProblem());
     }
 
     public void BuilderProblem(string problemString)
     {
-        _activeProblem = _factory.CreateProblem(problemString);
+        _activeProblem = ProblemFactory.Instance.CreateProblem(problemString);
         _startFractions = _activeProblem.Fractions.ToList();
 
         _slotGroup.ClearSlots();

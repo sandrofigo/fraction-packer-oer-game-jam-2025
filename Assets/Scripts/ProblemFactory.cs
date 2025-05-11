@@ -33,8 +33,22 @@ public struct ParseData
 }
 
 
-public class ProblemFactory
+public class ProblemFactory : MonoBehaviour
 {
+    public static ProblemFactory Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
     private Dictionary<char, ProblemType> problemTypeTokens = new Dictionary<char, ProblemType>()
     {
         { 'A', ProblemType.ASC },
