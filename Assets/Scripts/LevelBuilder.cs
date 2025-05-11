@@ -50,11 +50,11 @@ public class LevelBuilder : MonoBehaviour
             // fraction block
             if (fraction is { Numerator: 0, Denominator: 0 })
             {
-                _fractionBuilder.CreateFullFraction(fraction.Numerator, fraction.Denominator);
+                _fractionBuilder.CreateFullFraction(fraction.Numerator, fraction.Denominator, problem.Fractions.Length);
             }
             else
             {
-                _fractionBuilder.CreatePartialFraction(fraction.Numerator == 0 ? fraction.Numerator : fraction.Denominator);
+                _fractionBuilder.CreatePartialFraction(fraction.Numerator == 0 ? fraction.Numerator : fraction.Denominator, problem.Fractions.Length);
             }
 
             // operator

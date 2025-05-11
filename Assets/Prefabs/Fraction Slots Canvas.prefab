@@ -142,7 +142,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1094144747697242431
 MonoBehaviour:
@@ -182,7 +182,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 358eb68cee20d8a4b9b3aa15979f2bf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slots: []
   _container: {fileID: 502498813566131746}
   _slotPrefab: {fileID: 3854614561541659079, guid: 15d638f65268cd64388a054cfa3e2dc2, type: 3}
   _slotSymbolPrefab: {fileID: 167569822683737321, guid: 982f228f832fee44186bce4f374be65f, type: 3}
