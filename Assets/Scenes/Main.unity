@@ -848,6 +848,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ProblemDataGenerator
       objectReference: {fileID: 0}
+    - target: {fileID: 2391990126149206942, guid: 42b245f824a7ef442b0eec015ac7747a, type: 3}
+      propertyPath: txtFile
+      value: 
+      objectReference: {fileID: 4900000, guid: a86eb9b9e1f28434492e706a710d52df, type: 3}
+    - target: {fileID: 2391990126149206942, guid: 42b245f824a7ef442b0eec015ac7747a, type: 3}
+      propertyPath: useTxtFile
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8139476532949966566, guid: 42b245f824a7ef442b0eec015ac7747a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
