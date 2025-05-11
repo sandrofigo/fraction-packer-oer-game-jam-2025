@@ -8,15 +8,26 @@ public class PlusLesserParser
     // 1,2;5,n;n,6       =>    1/2    +    5/NULL < NULL/6
     public bool TryParse(string genDataStr, ref ParseData parseData)
     {
-        string[] fractionStrings = genDataStr.Split(ParseUtils.FRACTION_SERPARATOR);
-        parseData.amountFractions = fractionStrings.Length;
+        string[] fractionGroups = genDataStr.Split(ParseUtils.FRACTION_GROUP_SEPARATOR);
+        if (fractionGroups.Length != 2)
+            return false;
+
+        // preset fractions for problem
+        string[] presetFractionStrings = fractionGroups[0].Split(ParseUtils.FRACTION_SERPARATOR);
+        parseData.amountFractions = presetFractionStrings.Length;
 
         if (parseData.amountFractions < 3)
             return false;
 
-        if (!ParseUtils.TryParseFractions(fractionStrings, ref parseData))
+        if (!ParseUtils.TryParsePresetFractions(presetFractionStrings, ref parseData))
             return false;
 
+        // fractions available to user
+        string[] userFractionStrings = fractionGroups[1].Split(ParseUtils.FRACTION_SERPARATOR);
+        if (!ParseUtils.TryParseUserFractions(userFractionStrings, ref parseData))
+            return false;
+
+        // operators
         parseData.operators = new List<OperatorType>();
         for (int i = 0; i < (parseData.amountFractions - 2); i++)
             parseData.operators.Add(OperatorType.Plus);
