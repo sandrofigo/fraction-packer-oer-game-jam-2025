@@ -34,6 +34,11 @@ namespace Box
                 transform.position = position;
         }
 
+        public void MoveAndRotateTo(Vector3 position, Vector3 rotation, float delay)
+        {
+            _animationController.MoveAndRotateTo(position, rotation, delay);
+        }
+
         public void SetHover(bool isHovered)
         {
             _animationController.SetHover(isHovered);

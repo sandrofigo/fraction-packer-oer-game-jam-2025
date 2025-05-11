@@ -20,6 +20,9 @@ namespace Fractions
 
         [SerializeField]
         private Vector3 _animationStartPosition;
+        
+        [SerializeField]
+        private Vector3 _animationStartRotation;
 
         [SerializeField]
         private Vector3 _spawnStartPosition;
@@ -32,6 +35,9 @@ namespace Fractions
 
         [SerializeField]
         private float _gap = 0.5f;
+
+        [SerializeField]
+        private float _animationDelay = 0.1f;
 
         private int _spawnAmount;
 
@@ -68,9 +74,10 @@ namespace Fractions
         private void SetupFraction(AFractionBlock block)
         {
             block.transform.position = _animationStartPosition;
-            block.MoveTo(GetTargetPosition(), true);
-            
-            block.transform.Rotate(Vector3.up, Random.Range(-_maxRandomRotationAngle, _maxRandomRotationAngle));
+            block.transform.rotation = Quaternion.Euler(_animationStartRotation);
+
+            Vector3 targetRotation = Vector3.up * Random.Range(-_maxRandomRotationAngle, _maxRandomRotationAngle);
+            block.MoveAndRotateTo(GetTargetPosition(), targetRotation, _spawnAmount * _animationDelay);
 
             _spawnAmount++;
         }

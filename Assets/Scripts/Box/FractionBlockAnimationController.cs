@@ -12,6 +12,9 @@ namespace Box
         [SerializeField]
         private Ease _moveEase = Ease.OutSine;
 
+        [SerializeField]
+        private float _moveAndRotateDuration = 0.5f;
+
         [Header("Hover Animation")]
         [SerializeField]
         private float _hoverDuration = 0.1f;
@@ -83,6 +86,20 @@ namespace Box
             _rotateSequence = DOTween.Sequence()
                 .Append(transform.DOPunchRotation(_invalidShakePunch, _invalidShakeDuration / 2f))
                 .Append(transform.DOPunchRotation(-_invalidShakePunch, _invalidShakeDuration / 2f));
+        }
+
+        public void MoveAndRotateTo(Vector3 position, Vector3 rotation, float delay)
+        {
+            _moveSequence?.Kill();
+            _rotateSequence.Kill();
+
+            _moveSequence = DOTween.Sequence()
+                .Append(transform.DOMove(position, _moveAndRotateDuration).SetEase(_moveEase))
+                .SetDelay(delay);
+            
+            _rotateSequence = DOTween.Sequence()
+                .Append(transform.DORotate(rotation, _moveAndRotateDuration).SetEase(_moveEase))
+                .SetDelay(delay);
         }
     }
 }
