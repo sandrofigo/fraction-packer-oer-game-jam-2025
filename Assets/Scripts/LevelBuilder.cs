@@ -2,11 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Box;
 using Fractions;
 using UI;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 public class LevelBuilder : MonoBehaviour
 {
@@ -18,6 +18,9 @@ public class LevelBuilder : MonoBehaviour
 
     [Inject]
     private readonly GameManager _gameManager;
+
+    [Inject]
+    private readonly AudioManager _audioManager;
 
     private readonly List<(Fraction, SlotComponent)> _fractionSlotPairs = new();
 
@@ -132,6 +135,7 @@ public class LevelBuilder : MonoBehaviour
 
         if (!result)
         {
+            _audioManager.PlayClip("shake", 1, Random.Range(0.9f, 1.1f));
             foreach (var slot in _fractionBuilder.SpawnedSlots)
             {
                 slot.DoInvalidShakeAnimation();
@@ -139,6 +143,7 @@ public class LevelBuilder : MonoBehaviour
         }
         else
         {
+            _audioManager.PlayClip("success", 1, Random.Range(0.9f, 1.1f));
             _gameManager.RestartGame();
         }
     }

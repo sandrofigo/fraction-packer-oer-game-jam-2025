@@ -3,15 +3,20 @@ using Interaction;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
     [Inject]
     private readonly ControlsManager _controlsManager;
 
+    [Inject]
+    private readonly AudioManager _audioManager;
+
     public event Action GameStartEvent;
 
     private bool _isGameStarted;
+    private bool _isFirstGame = true;
 
     private void Awake()
     {
@@ -33,6 +38,12 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Game started!");
         _isGameStarted = true;
+
+        if (_isFirstGame)
+            _audioManager.PlayClip("bells", 1, Random.Range(0.9f, 1.1f));
+
+        _isFirstGame = false;
+        
         GameStartEvent?.Invoke();
     }
 
