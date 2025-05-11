@@ -9,7 +9,7 @@ public class PlusEqualsSolver : ISolver
         {
             valueSum += fractions[i].Value;
         }
-        return valueSum == fractions[fractions.Length - 1].Value;
+        return Mathf.Approximately(valueSum, fractions[fractions.Length - 1].Value);
     }
 }
 
