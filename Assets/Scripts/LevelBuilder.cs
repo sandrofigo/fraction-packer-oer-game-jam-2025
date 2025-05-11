@@ -15,7 +15,7 @@ public class LevelBuilder : MonoBehaviour
 
     [Inject]
     private readonly SlotGroupComponent _slotGroup;
-    
+
     [Inject]
     private readonly GameManager _gameManager;
 
@@ -25,7 +25,7 @@ public class LevelBuilder : MonoBehaviour
 
     private Problem _activeProblem;
     private List<Fraction> _startFractions = new();
-    
+
     private void Awake()
     {
         _gameManager.GameStartEvent += Restart;
@@ -33,10 +33,15 @@ public class LevelBuilder : MonoBehaviour
 
     private void Restart()
     {
+        foreach (var slot in _fractionBuilder.SpawnedSlots)
+        {
+            slot.FractionBlockPlaced -= SlotOnFractionBlockPlaced;
+        }
+
         _slotGroup.ClearSlots();
         _fractionBuilder.Clear();
-        
-        BuilderProblem("An,n;2,n;n,5-1,n;5,8;3,4;n,2;2,6");
+
+        BuilderProblem("An,n;2,n;n,5-3,n;5,8;3,4;n,9;2,6");
     }
 
     public void BuilderProblem(string problemString)
@@ -65,7 +70,7 @@ public class LevelBuilder : MonoBehaviour
         for (int i = 0; i < _activeProblem.UserFractions.Count; i++)
         {
             Fraction fraction = _activeProblem.UserFractions[i];
-            
+
             // fraction block
             if (fraction.Numerator != 0 && fraction.Denominator != 0)
             {
@@ -78,14 +83,14 @@ public class LevelBuilder : MonoBehaviour
         }
 
         StopAllCoroutines();
-        
+
         StartCoroutine(SpawnSlots());
     }
 
     private IEnumerator SpawnSlots()
     {
         yield return null;
-        
+
         // slots
         foreach ((Fraction, SlotComponent) pair in _fractionSlotPairs)
         {
@@ -101,14 +106,14 @@ public class LevelBuilder : MonoBehaviour
         for (var i = 0; i < _fractionBuilder.SpawnedSlots.Count; i++)
         {
             Fraction fraction = _startFractions[i];
-            
+
             var slot = _fractionBuilder.SpawnedSlots[i];
-            
+
             if (slot.GetNumerator() != 0)
             {
                 fraction.Numerator = slot.GetNumerator();
             }
-            
+
             if (slot.GetDenominator() != 0)
             {
                 fraction.Denominator = slot.GetDenominator();
@@ -121,13 +126,22 @@ public class LevelBuilder : MonoBehaviour
 
         bool result = false;
         bool isValid = _activeProblem.TryGetSolution(ref result);
-        
-        if (isValid && !result)
+
+        if (!isValid)
+        {
+            return;
+        }
+
+        if (!result)
         {
             foreach (var slot in _fractionBuilder.SpawnedSlots)
             {
                 slot.DoInvalidShakeAnimation();
             }
+        }
+        else
+        {
+            _gameManager.RestartGame();
         }
     }
 
