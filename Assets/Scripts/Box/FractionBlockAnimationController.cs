@@ -100,6 +100,7 @@ namespace Box
             _rotateSequence.Kill();
 
             _rotateSequence = DOTween.Sequence()
+                .AppendInterval(0.25f)
                 .Append(transform.DOPunchRotation(_invalidShakePunch, _invalidShakeDuration / 2f))
                 .Append(transform.DOPunchRotation(-_invalidShakePunch, _invalidShakeDuration / 2f));
         }

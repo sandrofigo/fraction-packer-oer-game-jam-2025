@@ -44,6 +44,8 @@ namespace Fractions
 
         private List<AFractionBlock> _spawnedBlocks = new();
         private List<FractionSlot> _spawnedSlots = new();
+        
+        public IReadOnlyList<FractionSlot> SpawnedSlots => _spawnedSlots;
 
         public void Clear()
         {
@@ -85,7 +87,7 @@ namespace Fractions
             return block;
         }
 
-        public void CreateSlot(Vector3 position, bool isNumeratorAvailable, bool isDenominatorAvailable)
+        public FractionSlot CreateSlot(Vector3 position, bool isNumeratorAvailable, bool isDenominatorAvailable)
         {
             FractionSlot slot = _container.InstantiatePrefabForComponent<FractionSlot>(_fractionSlotPrefab);
 
@@ -94,6 +96,8 @@ namespace Fractions
             slot.transform.position = position;
             
             _spawnedSlots.Add(slot);
+
+            return slot;
         }
 
         private void SetupFraction(AFractionBlock block, int fractionAmount)
