@@ -89,8 +89,8 @@ MonoBehaviour:
   _selectJiggleDuration: 0.5
   _selectJiggleAmplitude: 2
   _selectJigglePeriod: 0.5
-  _invalidShakePunch: {x: 0, y: 2, z: 0}
-  _invalidShakeDuration: 0.15
+  _invalidShakePunch: {x: 0, y: 7, z: 0}
+  _invalidShakeDuration: 0.17
   _visuals: {fileID: 0}
 --- !u!1 &5451017033054012011
 GameObject:

@@ -1,3 +1,4 @@
+using System;
 using Fractions;
 using UnityEngine;
 
@@ -20,6 +21,8 @@ namespace Box
         public bool IsValid => _content.FullFraction || (_content.Numerator && _content.Denominator);
         public bool IsEmpty => !_content.HasContent;
 
+        public event Action FractionBlockPlaced;
+
         public void Setup(bool isNumeratorAvailable, bool isDenominatorAvailable)
         {
             _numeratorSlot.gameObject.SetActive(isNumeratorAvailable);
@@ -32,22 +35,12 @@ namespace Box
 
         public int GetNumerator()
         {
-            if (!IsValid)
-            {
-                return -1;
-            }
-
-            return _content.Numerator ? _content.Numerator.Value : _content.FullFraction.Numerator;
+            return _content.Numerator ? _content.Numerator.Value : _content.FullFraction ? _content.FullFraction.Numerator : 0;
         }
 
         public int GetDenominator()
         {
-            if (!IsValid)
-            {
-                return -1;
-            }
-
-            return _content.Denominator ? _content.Denominator.Value : _content.FullFraction.Denominator;
+            return _content.Denominator ? _content.Denominator.Value : _content.FullFraction ? _content.FullFraction.Denominator : 0;
         }
 
         public float GetFractionAsFloat()
@@ -84,9 +77,11 @@ namespace Box
                     _ => _fullSlot.position
                 };
 
-                block.MoveTo(position, Vector3.zero, true);
+                block.MoveTo(position, true);
 
                 _lastContent = new SlotContent();
+                
+                FractionBlockPlaced?.Invoke();
             }
         }
 
@@ -116,6 +111,13 @@ namespace Box
                     _content.FullFraction = null;
                     break;
             }
+        }
+
+        public void DoInvalidShakeAnimation()
+        {
+            _content.Numerator?.DoInvalidShake();
+            _content.Denominator?.DoInvalidShake();
+            _content.FullFraction?.DoInvalidShake();
         }
 
         private bool HasRoom(BlockType blockType)

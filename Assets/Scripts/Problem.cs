@@ -73,7 +73,7 @@ public class Problem
     }
 
     #region Solver
-    protected bool TryGetSolution(ref bool outResult)
+    public bool TryGetSolution(ref bool outResult)
     {
         outResult = false;
 
