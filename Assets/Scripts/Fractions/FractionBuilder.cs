@@ -77,7 +77,10 @@ namespace Fractions
             block.transform.rotation = Quaternion.Euler(_animationStartRotation);
 
             Vector3 targetRotation = Vector3.up * Random.Range(-_maxRandomRotationAngle, _maxRandomRotationAngle);
-            block.MoveAndRotateTo(GetTargetPosition(), targetRotation, _spawnAmount * _animationDelay);
+            Vector3 targetPosition = GetTargetPosition();
+            block.MoveAndRotateTo(targetPosition, targetRotation, _spawnAmount * _animationDelay);
+            
+            block.SetInitialPosition(targetPosition, targetRotation);
 
             _spawnAmount++;
         }

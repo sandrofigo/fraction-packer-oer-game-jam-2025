@@ -60,6 +60,18 @@ namespace Box
             _moveSequence = DOTween.Sequence()
                 .Append(transform.DOMove(position, _moveDuration).SetEase(_moveEase));
         }
+        
+        public void MoveTo(Vector3 position, Vector3 rotation)
+        {
+            _moveSequence?.Kill();
+            _rotateSequence.Kill();
+
+            _moveSequence = DOTween.Sequence()
+                .Append(transform.DOMove(position, _moveDuration).SetEase(_moveEase));
+
+            _rotateSequence = DOTween.Sequence()
+                .Append(transform.DORotate(rotation, _moveDuration).SetEase(_moveEase));
+        }
 
         public void SetHover(bool isHovered)
         {

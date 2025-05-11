@@ -83,7 +83,7 @@ namespace Box
                     _ => _fullSlot.position
                 };
 
-                block.MoveTo(position, true);
+                block.MoveTo(position, Vector3.zero, true);
 
                 _lastContent = new SlotContent();
             }
@@ -122,7 +122,7 @@ namespace Box
             if (_content.FullFraction) return false;
 
             if (blockType == BlockType.Full) return !_content.Numerator && !_content.Denominator;
-            
+
             return !_content.ForType(blockType);
         }
     }
