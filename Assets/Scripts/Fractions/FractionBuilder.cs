@@ -15,6 +15,9 @@ namespace Fractions
         [SerializeField]
         private PartialFractionBlock _partialFractionPrefab;
 
+        [SerializeField]
+        private FractionSlot _fractionSlotPrefab;
+
         public FullFractionBlock CreateFullFraction(int numerator, int denominator)
         {
             FullFractionBlock block = _container.InstantiatePrefabForComponent<FullFractionBlock>(_fullFractionPrefab);
@@ -32,6 +35,13 @@ namespace Fractions
             block.FractionComponent.SetValue(value);
 
             return block;
+        }
+
+        public void CreateSlot(Vector3 position)
+        {
+            FractionSlot slot = _container.InstantiatePrefabForComponent<FractionSlot>(_fractionSlotPrefab);
+            
+            slot.transform.position = position;
         }
     }
 }

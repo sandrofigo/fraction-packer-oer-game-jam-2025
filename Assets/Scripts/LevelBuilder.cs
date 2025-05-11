@@ -29,7 +29,8 @@ public class LevelBuilder : MonoBehaviour
             var fraction = problem.Fractions[i];
 
             // slot
-            _slotGroup.SpawnSlot(fraction.Numerator == 0 ? null : fraction.Numerator, fraction.Denominator == 0 ? null : fraction.Denominator);
+            var slotComponent = _slotGroup.SpawnSlot(fraction.Numerator == 0 ? null : fraction.Numerator, fraction.Denominator == 0 ? null : fraction.Denominator);
+            _fractionBuilder.CreateSlot(slotComponent.transform.position);
 
             // fraction block
             if (fraction is { Numerator: 0, Denominator: 0 })

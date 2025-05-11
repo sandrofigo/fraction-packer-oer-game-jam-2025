@@ -32,6 +32,9 @@ namespace UI
             var component = _diContainer.InstantiatePrefabForComponent<SlotComponent>(_slotPrefab, _container);
             component.SetValueTop(topValue.HasValue ? topValue.Value.ToString() : "");
             component.SetValueBottom(bottomValue.HasValue ? bottomValue.Value.ToString() : "");
+            
+            UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(_container);
+            
             return component;
         }
 
