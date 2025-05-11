@@ -29,7 +29,7 @@ public class LevelBuilder : MonoBehaviour
 
     private void SpawnFirstProblem()
     {
-        BuilderProblem("An,n;3,n;n,7");
+        BuilderProblem("An,n;2,n;n,5-1,n;5,8;3,4;n,2;2,6");
     }
 
     public void BuilderProblem(string problemString)
@@ -47,20 +47,25 @@ public class LevelBuilder : MonoBehaviour
             SlotComponent slotComponent = _slotGroup.SpawnSlot(fraction.Numerator == 0 ? null : fraction.Numerator, fraction.Denominator == 0 ? null : fraction.Denominator);
             _fractionSlotPairs.Add((fraction, slotComponent));
 
-            // fraction block
-            if (fraction is { Numerator: 0, Denominator: 0 })
-            {
-                _fractionBuilder.CreateFullFraction(fraction.Numerator, fraction.Denominator, problem.Fractions.Length);
-            }
-            else
-            {
-                _fractionBuilder.CreatePartialFraction(fraction.Numerator == 0 ? fraction.Numerator : fraction.Denominator, problem.Fractions.Length);
-            }
-
             // operator
             if (i < problem.Operators.Length)
             {
                 _slotGroup.SpawnSlotSymbol(OperatorDisplayValue.GetDisplayValue(problem.Operators[i]));
+            }
+        }
+
+        for (int i = 0; i < problem.UserFractions.Count; i++)
+        {
+            Fraction fraction = problem.UserFractions[i];
+            
+            // fraction block
+            if (fraction.Numerator != 0 && fraction.Denominator != 0)
+            {
+                _fractionBuilder.CreateFullFraction(fraction.Numerator, fraction.Denominator, problem.UserFractions.Count);
+            }
+            else
+            {
+                _fractionBuilder.CreatePartialFraction(fraction.Numerator != 0 ? fraction.Numerator : fraction.Denominator, problem.UserFractions.Count);
             }
         }
 
