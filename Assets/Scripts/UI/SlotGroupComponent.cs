@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace UI
@@ -8,7 +10,7 @@ namespace UI
         [Inject]
         private readonly DiContainer _diContainer;
 
-        [SerializeField] private SlotComponent[] _slots;
+        private List<SlotComponent> _slots = new();
 
         [SerializeField] private RectTransform _container;
         [SerializeField] private GameObject _slotPrefab;
@@ -25,6 +27,8 @@ namespace UI
             {
                 Destroy(child.gameObject);
             }
+            
+            _slots.Clear();
         }
 
         public SlotComponent SpawnSlot(int? topValue, int? bottomValue)
@@ -33,7 +37,7 @@ namespace UI
             component.SetValueTop(topValue.HasValue ? topValue.Value.ToString() : "");
             component.SetValueBottom(bottomValue.HasValue ? bottomValue.Value.ToString() : "");
             
-            UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(_container);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_container);
             
             return component;
         }
@@ -43,6 +47,11 @@ namespace UI
             var component = _diContainer.InstantiatePrefabForComponent<SlotSymbolComponent>(_slotSymbolPrefab, _container);
             component.SetText(symbol);
             return component;
+        }
+
+        public SlotComponent[] GetSlots()
+        {
+            return _slots.ToArray();
         }
     }
 }
