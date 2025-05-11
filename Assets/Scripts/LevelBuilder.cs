@@ -1,3 +1,4 @@
+using System;
 using Fractions;
 using UI;
 using UnityEngine;
@@ -10,10 +11,18 @@ public class LevelBuilder : MonoBehaviour
 
     [Inject]
     private readonly SlotGroupComponent _slotGroup;
+    
+    [Inject]
+    private readonly GameManager _gameManager;
 
     readonly ProblemFactory _factory = new();
 
-    private void Start()
+    private void Awake()
+    {
+        _gameManager.GameStartEvent += SpawnFirstProblem;
+    }
+
+    private void SpawnFirstProblem()
     {
         BuilderProblem("An,n;3,n;n,7");
     }

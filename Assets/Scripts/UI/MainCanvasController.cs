@@ -26,6 +26,7 @@ namespace UI
             if (!context.started)
                 return;
 
+            _controlsManager.AnyKey -= OnAnyKey;
             HideTitleScreen();
         }
 
