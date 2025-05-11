@@ -98,7 +98,6 @@ public class ProblemDataGenerator : MonoBehaviour
                 for(int j = 0; j < randFractAmount; j++)
                 {
                     Tuple<int, int> pair = exampleFractions[UnityEngine.Random.Range(0, exampleFractions.Count)];
-                    sb.Append(pair.Item1 + "," + pair.Item2 + ";");
                     userInputs.Add(pair.Item1 + "," + pair.Item2 + ";");
                 }
 
