@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 public enum ProblemType
 {
@@ -43,6 +44,8 @@ public class ProblemFactory
         { 'E', ProblemType.Equals },
         { 'P', ProblemType.PlusEquals },
     };
+
+    public List<char> ProblemTypeTokens => problemTypeTokens.Keys.ToList();
 
     private string genDataString;
 
