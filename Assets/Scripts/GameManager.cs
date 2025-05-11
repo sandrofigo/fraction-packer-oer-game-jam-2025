@@ -23,8 +23,7 @@ public class GameManager : MonoBehaviour
         if (!context.started)
             return;
 
-        _isGameStarted = false;
-        OnGameStart();
+        RestartGame();
     }
 
     public void OnGameStart()
@@ -35,5 +34,14 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game started!");
         _isGameStarted = true;
         GameStartEvent?.Invoke();
+    }
+
+    public void RestartGame()
+    {
+        if (!_isGameStarted)
+            return;
+
+        _isGameStarted = false;
+        OnGameStart();
     }
 }
