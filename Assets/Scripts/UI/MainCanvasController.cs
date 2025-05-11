@@ -15,12 +15,15 @@ namespace UI
         [Inject]
         private readonly GameManager _gameManager;
 
+        [Inject]
+        private readonly AudioManager _audioManager;
+
         [SerializeField] private CanvasGroup _titleScreenCanvasGroup;
         [SerializeField] private CanvasGroup _mainScreenCanvasGroup;
 
         [SerializeField] private Button _restartButton;
-        
-        
+
+
         private void Awake()
         {
             _controlsManager.AnyKey += OnAnyKey;
@@ -28,9 +31,10 @@ namespace UI
             _mainScreenCanvasGroup.alpha = 0;
             _mainScreenCanvasGroup.interactable = false;
             _mainScreenCanvasGroup.blocksRaycasts = false;
-            
+
             _restartButton.onClick.AddListener(() =>
             {
+                _audioManager.PlayClip("knock", 1, Random.Range(0.9f, 1.1f));
                 _gameManager.RestartGame();
             });
         }
@@ -52,7 +56,7 @@ namespace UI
                     _titleScreenCanvasGroup.gameObject.SetActive(false);
                     _gameManager.OnGameStart();
                 }).SetLink(gameObject);
-            
+
             _mainScreenCanvasGroup.interactable = true;
             _mainScreenCanvasGroup.blocksRaycasts = true;
             _mainScreenCanvasGroup.DOFade(1, 0.35f)
