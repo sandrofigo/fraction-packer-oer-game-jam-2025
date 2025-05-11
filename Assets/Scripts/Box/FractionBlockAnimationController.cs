@@ -83,12 +83,16 @@ namespace Box
         public void Select()
         {
             _scaleSequence.Kill();
+            _rotateSequence.Kill();
 
             transform.localScale = Vector3.one * 0.7f;
 
             _scaleSequence = DOTween.Sequence()
                 .Append(transform.DOScale(Vector3.one, _selectJiggleDuration))
                 .SetEase(Ease.OutElastic, _selectJiggleAmplitude, _selectJigglePeriod);
+            
+            _rotateSequence = DOTween.Sequence()
+                .Append(transform.DORotate(new Vector3(0f, 0f, 0f), _selectJiggleDuration));
         }
 
         public void DoInvalidShakeAnimation()

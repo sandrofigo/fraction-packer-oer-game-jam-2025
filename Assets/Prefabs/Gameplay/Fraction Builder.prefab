@@ -47,9 +47,9 @@ MonoBehaviour:
   _fullFractionPrefab: {fileID: 5940027148636768624, guid: 7e1e4aea1e79d2743b1ccd8087f4a475, type: 3}
   _partialFractionPrefab: {fileID: 8312682610536644195, guid: 60e9be1490bb09149886a8e0dc1555de, type: 3}
   _fractionSlotPrefab: {fileID: 4376360383426299786, guid: ed9bff59ef699cb4baee4a09cfe05d25, type: 3}
-  _animationStartPosition: {x: -9, y: 0.5, z: 2}
+  _animationStartPosition: {x: -9, y: 0.5, z: 1.2}
   _animationStartRotation: {x: 0, y: -30, z: 0}
-  _spawnStartPosition: {x: -2, y: 0.13, z: 0}
+  _spawnCenterPosition: {x: 0, y: 0.13, z: 0}
   _maxRandomOffset: {x: 0.25, y: 0, z: 0.25}
   _maxRandomRotationAngle: 7
   _gap: 0.75
