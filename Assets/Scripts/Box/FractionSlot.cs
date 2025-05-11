@@ -1,6 +1,7 @@
 using System;
 using Fractions;
 using UnityEngine;
+using Zenject;
 
 namespace Box
 {
@@ -14,6 +15,9 @@ namespace Box
 
         [SerializeField]
         private Transform _fullSlot;
+        
+        [Inject]
+        private readonly AudioManager _audioManager;
 
         private SlotContent _content;
         private SlotContent _lastContent;
@@ -82,6 +86,7 @@ namespace Box
                 _lastContent = new SlotContent();
                 
                 FractionBlockPlaced?.Invoke();
+                _audioManager.PlayClip("stone_drop", 1f, 1f);
             }
         }
 
