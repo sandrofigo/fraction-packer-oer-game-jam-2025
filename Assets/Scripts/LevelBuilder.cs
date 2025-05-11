@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Fractions;
 using UI;
 using UnityEngine;
@@ -15,7 +18,9 @@ public class LevelBuilder : MonoBehaviour
     [Inject]
     private readonly GameManager _gameManager;
 
-    readonly ProblemFactory _factory = new();
+    private readonly ProblemFactory _factory = new();
+
+    private readonly List<(Fraction, SlotComponent)> fractionSlotPairs = new();
 
     private void Awake()
     {
@@ -30,16 +35,17 @@ public class LevelBuilder : MonoBehaviour
     public void BuilderProblem(string problemString)
     {
         Problem problem = _factory.CreateProblem(problemString);
-        
+
         _slotGroup.ClearSlots();
+        fractionSlotPairs.Clear();
 
         for (var i = 0; i < problem.Fractions.Length; i++)
         {
-            var fraction = problem.Fractions[i];
+            Fraction fraction = problem.Fractions[i];
 
             // slot
-            var slotComponent = _slotGroup.SpawnSlot(fraction.Numerator == 0 ? null : fraction.Numerator, fraction.Denominator == 0 ? null : fraction.Denominator);
-            _fractionBuilder.CreateSlot(slotComponent.transform.position);
+            SlotComponent slotComponent = _slotGroup.SpawnSlot(fraction.Numerator == 0 ? null : fraction.Numerator, fraction.Denominator == 0 ? null : fraction.Denominator);
+            fractionSlotPairs.Add((fraction, slotComponent));
 
             // fraction block
             if (fraction is { Numerator: 0, Denominator: 0 })
@@ -57,5 +63,26 @@ public class LevelBuilder : MonoBehaviour
                 _slotGroup.SpawnSlotSymbol(OperatorDisplayValue.GetDisplayValue(problem.Operators[i]));
             }
         }
+
+        StopAllCoroutines();
+        
+        StartCoroutine(SpawnSlots());
     }
+
+    private IEnumerator SpawnSlots()
+    {
+        yield return null;
+        
+        // slots
+        foreach ((Fraction, SlotComponent) pair in fractionSlotPairs)
+        {
+            _fractionBuilder.CreateSlot(pair.Item2.GetComponent<RectTransform>().position);
+        }
+    }
+
+    // private void Update()
+    // {
+    //     if (fractionSlotPairs.Count > 0)
+    //         Debug.Log(fractionSlotPairs.First().Item2.GetComponent<RectTransform>().position);
+    // }
 }

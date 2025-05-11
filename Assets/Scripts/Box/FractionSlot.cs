@@ -1,17 +1,8 @@
-using System;
 using Fractions;
-using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Box
 {
-    public enum SlotPlacementType
-    {
-        None,
-        Hover,
-        Place,
-    }
-
     public class FractionSlot : MonoBehaviour, IFraction
     {
         [SerializeField]
