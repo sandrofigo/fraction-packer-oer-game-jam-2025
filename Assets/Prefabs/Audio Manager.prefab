@@ -51,3 +51,13 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 8d1c0b1a1dfadf247878d2e1f78e977c, type: 3}
   - name: knock
     clip: {fileID: 8300000, guid: e57203e9e8ed07c45bd7a304777f4656, type: 3}
+  - name: success
+    clip: {fileID: 8300000, guid: c15284d2174dade47acec525b74a1e9f, type: 3}
+  - name: shake
+    clip: {fileID: 8300000, guid: 8993c4d4d6d4f004a93c5392e7a5e168, type: 3}
+  - name: shake
+    clip: {fileID: 8300000, guid: 8993c4d4d6d4f004a93c5392e7a5e168, type: 3}
+  - name: bells
+    clip: {fileID: 8300000, guid: 07f55b62fc42e014a82cf5646c10f2d2, type: 3}
+  - name: knock2
+    clip: {fileID: 8300000, guid: 606cad00cae0cf3449f1b10b66adf319, type: 3}

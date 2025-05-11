@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public interface IParser
 {
@@ -54,7 +55,10 @@ public static class ParseUtils
     private static bool TryParseSingleFraction(string fractionString, ref Fraction fraction)
     {
         if (fractionString.IndexOf(INNER_FRACTION_SERPARATOR) != 1 || fractionString.Length != 3)
+        {
+            Debug.LogError("TryParseSingleFraction FAILED at <" + fractionString + ">");
             return false;
+        }
 
         if (int.TryParse(fractionString[0].ToString(), out int numerator))
             fraction.Numerator = numerator;

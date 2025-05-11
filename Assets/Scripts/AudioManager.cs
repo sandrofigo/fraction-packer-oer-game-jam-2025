@@ -7,13 +7,20 @@ public class AudioManager : MonoBehaviour
 
     public void PlayClip(string soundName, float volume, float pitch)
     {
+        Sound sound = _audioClips.FirstOrDefault(c => c.name == soundName);
+        if (sound == null)
+        {
+            Debug.LogError($"Could not find sound '{soundName}'");
+            return;
+        }
+
         var obj = new GameObject
         {
             name = $"AudioSource ({soundName})"
         };
 
         var audioSource = obj.AddComponent<AudioSource>();
-        AudioClip clip = _audioClips.First(c => c.name == soundName).clip;
+        AudioClip clip = sound.clip;
         audioSource.clip = clip;
         audioSource.volume = volume;
         audioSource.pitch = pitch;

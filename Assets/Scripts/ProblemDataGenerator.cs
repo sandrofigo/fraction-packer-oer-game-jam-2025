@@ -2,13 +2,17 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using System.Text;
+using System.IO;
+using System.Linq;
 
 public class ProblemDataGenerator : MonoBehaviour
 {
     private int currentDataIdx = 0;
     private List<string> data = new List<string>();
     private int countProblemsPerToken = 10;
-    ProblemFactory problemFactory;
+
+    public TextAsset txtFile = null;
+    public bool useTxtFile = false;
 
     private List<Tuple<int, int>> exampleFractions = new List<Tuple<int, int>>();
 
@@ -28,9 +32,35 @@ public class ProblemDataGenerator : MonoBehaviour
 
     private void Start()
     {
-        for(int i = 1; i < 9; i++)
+        if(useTxtFile && txtFile != null)
         {
-            for(int j = 1; j < 9; j++)
+            ParseTxtFile();
+        }
+        else
+        {
+            ChaosGeneration();
+        }
+    }
+
+
+
+    public string GetNextProblem()
+    {
+        string next = data[currentDataIdx % data.Count];
+        currentDataIdx++;
+        return next;
+    }
+
+    private void ParseTxtFile()
+    {
+        data = txtFile.text.Split(Environment.NewLine).ToList();
+    }
+
+    private void ChaosGeneration()
+    {
+        for (int i = 1; i < 9; i++)
+        {
+            for (int j = 1; j < 9; j++)
             {
                 if (i == j)
                     continue;
@@ -38,14 +68,11 @@ public class ProblemDataGenerator : MonoBehaviour
             }
         }
 
-        foreach(var token in ProblemFactory.Instance.ProblemTypeTokens)
+        foreach (var token in ProblemFactory.Instance.ProblemTypeTokens)
         {
-            if (token == 'E' || token == 'P')
-                continue;
-
             Debug.Log("Start with token <" + token.ToString() + ">");
 
-            for(int i = 0; i < countProblemsPerToken; i++)
+            for (int i = 0; i < countProblemsPerToken; i++)
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append(token.ToString());
@@ -84,7 +111,7 @@ public class ProblemDataGenerator : MonoBehaviour
 
                 if (randFractAmount + randSinglesAmount > maxCount)
                 {
-                    if(UnityEngine.Random.Range(1, 3) % 2 == 0)
+                    if (UnityEngine.Random.Range(1, 3) % 2 == 0)
                     {
                         randFractAmount--;
                     }
@@ -95,7 +122,7 @@ public class ProblemDataGenerator : MonoBehaviour
                 }
 
                 // user fractions
-                for(int j = 0; j < randFractAmount; j++)
+                for (int j = 0; j < randFractAmount; j++)
                 {
                     Tuple<int, int> pair = exampleFractions[UnityEngine.Random.Range(0, exampleFractions.Count)];
                     userInputs.Add(pair.Item1 + "," + pair.Item2 + ";");
@@ -109,7 +136,7 @@ public class ProblemDataGenerator : MonoBehaviour
                     userInputs.Add(selectedItem + ",n;");
                 }
 
-                for(int j = 0; j < userInputs.Count; j++)
+                while (userInputs.Count > 0)
                 {
                     int removeIdx = UnityEngine.Random.Range(0, userInputs.Count);
                     string removed = userInputs[removeIdx];
@@ -121,12 +148,15 @@ public class ProblemDataGenerator : MonoBehaviour
                 data.Add(sb.ToString());
             }
         }
-    }
 
-    public string GetNextProblem()
-    {
-        string next = data[currentDataIdx % data.Count];
-        currentDataIdx++;
-        return next;
+        // write data to txt
+        int filePrefix = UnityEngine.Random.Range(0, 100);
+        string fileName = filePrefix + "_data.txt";
+
+        using (TextWriter tw = new StreamWriter(Application.persistentDataPath + "/" + fileName))
+        {
+            foreach (var line in data)
+                tw.WriteLine(line);
+        }
     }
 }

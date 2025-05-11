@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class PlusGreaterParser
+public class PlusGreaterParser : IParser
 {
     // examples (min length is 3)
     // n,n;n,n;n,n       => NULL/NULL + NULL/NULL > NULL/NULL

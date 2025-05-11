@@ -77,7 +77,28 @@ public class ProblemFactory : MonoBehaviour
                 parser = new AscParser();
                 solver = new AscSolver();
                 break;
+            case ProblemType.DESC:
+                parser = new DescParser();
+                solver = new DescSolver();
+                break;
+            case ProblemType.PlusLesser:
+                parser = new PlusLesserParser();
+                solver = new PlusLesserSolver();
+                break;
+            case ProblemType.PlusGreater:
+                parser = new PlusGreaterParser();
+                solver = new PlusGreaterSolver();
+                break;
+            case ProblemType.Equals:
+                parser = new EqualsParser();
+                solver = new EqualsSolver();
+                break;
+            case ProblemType.PlusEquals:
+                parser = new PlusEqualsParser();
+                solver = new PlusEqualsSolver();
+                break;
             default:
+                Debug.LogError("not implemented problem type <" + type + ">");
                 break;
         }
         
