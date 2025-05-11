@@ -53,7 +53,7 @@ public class ProblemDataGenerator : MonoBehaviour
 
     private void ParseTxtFile()
     {
-        data = txtFile.text.Split("\n").ToList();
+        data = txtFile.text.Split(Environment.NewLine).ToList();
     }
 
     private void ChaosGeneration()
