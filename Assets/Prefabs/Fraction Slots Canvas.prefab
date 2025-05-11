@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 502498813566131746}
   - component: {fileID: 1094144747697242431}
   - component: {fileID: 1480751318010558663}
+  - component: {fileID: 4602092141330467278}
   m_Layer: 5
   m_Name: Slot Group
   m_TagString: Untagged
@@ -182,10 +183,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 358eb68cee20d8a4b9b3aa15979f2bf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slots: []
   _container: {fileID: 502498813566131746}
   _slotPrefab: {fileID: 3854614561541659079, guid: 15d638f65268cd64388a054cfa3e2dc2, type: 3}
   _slotSymbolPrefab: {fileID: 167569822683737321, guid: 982f228f832fee44186bce4f374be65f, type: 3}
+  _canvasGroup: {fileID: 4602092141330467278}
+--- !u!225 &4602092141330467278
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8199240865229139724}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &3273384944059112648
 PrefabInstance:
   m_ObjectHideFlags: 0
