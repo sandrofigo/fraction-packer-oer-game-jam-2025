@@ -54,6 +54,8 @@ public static class ParseUtils
 
     private static bool TryParseSingleFraction(string fractionString, ref Fraction fraction)
     {
+        fractionString = fractionString.Trim();
+        
         if (fractionString.IndexOf(INNER_FRACTION_SERPARATOR) != 1 || fractionString.Length != 3)
         {
             Debug.LogError("TryParseSingleFraction FAILED at <" + fractionString + ">");
