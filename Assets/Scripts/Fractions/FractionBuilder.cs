@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Box;
 using UnityEngine;
 using Zenject;
@@ -41,6 +42,26 @@ namespace Fractions
 
         private int _spawnAmount;
 
+        private List<AFractionBlock> _spawnedBlocks = new();
+        private List<FractionSlot> _spawnedSlots = new();
+
+        public void Clear()
+        {
+            foreach (var block in _spawnedBlocks)
+            {
+                Destroy(block.gameObject);
+            }
+
+            foreach (var slot in _spawnedSlots)
+            {
+                Destroy(slot.gameObject);
+            }
+            
+            _spawnedBlocks.Clear();
+            _spawnedSlots.Clear();
+            _spawnAmount = 0;
+        }
+
         public FullFractionBlock CreateFullFraction(int numerator, int denominator, int problemFractionAmount)
         {
             FullFractionBlock block = _container.InstantiatePrefabForComponent<FullFractionBlock>(_fullFractionPrefab);
@@ -71,6 +92,8 @@ namespace Fractions
             slot.Setup(isNumeratorAvailable, isDenominatorAvailable);
 
             slot.transform.position = position;
+            
+            _spawnedSlots.Add(slot);
         }
 
         private void SetupFraction(AFractionBlock block, int fractionAmount)
@@ -85,6 +108,7 @@ namespace Fractions
             block.SetInitialPosition(targetPosition, targetRotation);
 
             _spawnAmount++;
+            _spawnedBlocks.Add(block);
         }
 
         private Vector3 GetTargetPosition(int fractionAmount)

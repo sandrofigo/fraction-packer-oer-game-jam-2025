@@ -24,11 +24,14 @@ public class LevelBuilder : MonoBehaviour
 
     private void Awake()
     {
-        _gameManager.GameStartEvent += SpawnFirstProblem;
+        _gameManager.GameStartEvent += Restart;
     }
 
-    private void SpawnFirstProblem()
+    private void Restart()
     {
+        _slotGroup.ClearSlots();
+        _fractionBuilder.Clear();
+        
         BuilderProblem("An,n;2,n;n,5-1,n;5,8;3,4;n,2;2,6");
     }
 
