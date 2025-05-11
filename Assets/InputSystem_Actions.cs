@@ -108,6 +108,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Restart"",
+                    ""type"": ""Button"",
+                    ""id"": ""b45ce06e-c3bd-45cc-8708-cc9c1ffb8735"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -198,6 +207,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Any Key"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d420c47f-089f-440f-8da3-fb374c9e3334"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Restart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -269,6 +289,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Interaction = asset.FindActionMap("Interaction", throwIfNotFound: true);
         m_Interaction_Interact = m_Interaction.FindAction("Interact", throwIfNotFound: true);
         m_Interaction_AnyKey = m_Interaction.FindAction("Any Key", throwIfNotFound: true);
+        m_Interaction_Restart = m_Interaction.FindAction("Restart", throwIfNotFound: true);
     }
 
     ~@Controls()
@@ -351,6 +372,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private List<IInteractionActions> m_InteractionActionsCallbackInterfaces = new List<IInteractionActions>();
     private readonly InputAction m_Interaction_Interact;
     private readonly InputAction m_Interaction_AnyKey;
+    private readonly InputAction m_Interaction_Restart;
     /// <summary>
     /// Provides access to input actions defined in input action map "Interaction".
     /// </summary>
@@ -370,6 +392,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Interaction/AnyKey".
         /// </summary>
         public InputAction @AnyKey => m_Wrapper.m_Interaction_AnyKey;
+        /// <summary>
+        /// Provides access to the underlying input action "Interaction/Restart".
+        /// </summary>
+        public InputAction @Restart => m_Wrapper.m_Interaction_Restart;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -402,6 +428,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @AnyKey.started += instance.OnAnyKey;
             @AnyKey.performed += instance.OnAnyKey;
             @AnyKey.canceled += instance.OnAnyKey;
+            @Restart.started += instance.OnRestart;
+            @Restart.performed += instance.OnRestart;
+            @Restart.canceled += instance.OnRestart;
         }
 
         /// <summary>
@@ -419,6 +448,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @AnyKey.started -= instance.OnAnyKey;
             @AnyKey.performed -= instance.OnAnyKey;
             @AnyKey.canceled -= instance.OnAnyKey;
+            @Restart.started -= instance.OnRestart;
+            @Restart.performed -= instance.OnRestart;
+            @Restart.canceled -= instance.OnRestart;
         }
 
         /// <summary>
@@ -538,5 +570,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnAnyKey(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Restart" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRestart(InputAction.CallbackContext context);
     }
 }
