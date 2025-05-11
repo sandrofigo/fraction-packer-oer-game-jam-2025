@@ -7,8 +7,9 @@ using System.Linq;
 
 public class ProblemDataGenerator : MonoBehaviour
 {
-    private int currentDataIdx = 0;
-    private List<string> data = new List<string>();
+    public int currentDataIdx = 0;
+    public List<string> data = new List<string>();
+    public string current = string.Empty;
     private int countProblemsPerToken = 10;
 
     public TextAsset txtFile = null;
@@ -42,18 +43,28 @@ public class ProblemDataGenerator : MonoBehaviour
         }
     }
 
-
-
     public string GetNextProblem()
     {
-        string next = data[currentDataIdx % data.Count];
+        current = data[currentDataIdx % data.Count];
+        Debug.Log("next problem to be parsed <" + current + ">");
         currentDataIdx++;
-        return next;
+        return current;
     }
 
     private void ParseTxtFile()
     {
         data = txtFile.text.Split(Environment.NewLine).ToList();
+
+        int dataLen = data.Count;
+
+        while(dataLen > 1)
+        {
+            dataLen--;
+            int random = new System.Random().Next(dataLen + 1);
+            string val = data[random];
+            data[random] = data[dataLen];
+            data[dataLen] = val;
+        }
     }
 
     private void ChaosGeneration()

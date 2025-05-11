@@ -13,6 +13,7 @@ public struct Fraction
 public class Problem
 {
     private ProblemType type;
+    public ProblemType Type => type;
     private int amountFractions;
     private int amountOperations;
     public Fraction[] Fractions { get; private set; } // parsed Data

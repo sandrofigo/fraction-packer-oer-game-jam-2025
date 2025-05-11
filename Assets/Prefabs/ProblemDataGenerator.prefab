@@ -44,3 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58b851a6451bcd14ca40ef1f09b7f3fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentDataIdx: 0
+  data: []
+  current: 
+  txtFile: {fileID: 4900000, guid: a86eb9b9e1f28434492e706a710d52df, type: 3}
+  useTxtFile: 1
