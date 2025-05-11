@@ -28,6 +28,8 @@ namespace Installers
             Container.Bind<FractionBlockInteractor>().FromComponentInNewPrefab(_fractionBlockInteractor).AsSingle().NonLazy();
             
             Container.Bind<GameManager>().FromComponentInHierarchy().AsSingle().NonLazy();
+            
+            Container.Bind<AudioManager>().FromComponentInHierarchy().AsSingle().NonLazy();
         }
     }
 }

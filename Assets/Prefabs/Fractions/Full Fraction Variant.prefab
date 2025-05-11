@@ -186,6 +186,10 @@ PrefabInstance:
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 1449645546730829186, guid: eedf9136cbfb1fc4bab3d4381323b8aa, type: 3}
+      propertyPath: _visuals
+      value: 
+      objectReference: {fileID: 1650519196434393418}
     - target: {fileID: 4188141254941924245, guid: eedf9136cbfb1fc4bab3d4381323b8aa, type: 3}
       propertyPath: m_Name
       value: Full Fraction Variant
@@ -295,6 +299,11 @@ MonoBehaviour:
   _isFull: 1
   _numeratorFractionComponent: {fileID: 4158403231580964343}
   _denominatorFractionComponent: {fileID: 4144762923100259213}
+--- !u!4 &1650519196434393418 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4076011996168330295, guid: eedf9136cbfb1fc4bab3d4381323b8aa, type: 3}
+  m_PrefabInstance: {fileID: 3348203286467933565}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4208923742034280703 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1449645546730829186, guid: eedf9136cbfb1fc4bab3d4381323b8aa, type: 3}
@@ -333,7 +342,7 @@ MonoBehaviour:
   - {fileID: 2464629603229626979}
   - {fileID: 8454658479108339593}
   - {fileID: 5343331935741363515}
-  _enableProbability: 0.5
+  _enableProbability: 0.4
 --- !u!224 &9010847881701205119 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6015616468875923714, guid: eedf9136cbfb1fc4bab3d4381323b8aa, type: 3}

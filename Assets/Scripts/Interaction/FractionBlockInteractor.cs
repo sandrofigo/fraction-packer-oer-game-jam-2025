@@ -30,6 +30,8 @@ namespace Interaction
 
         private Plane _groundPlane = new Plane(Vector3.up, Vector3.zero);
 
+        private Vector3 _grabOffset;
+
         private void Awake()
         {
             _camera = Camera.main;
@@ -49,7 +51,7 @@ namespace Interaction
             }
             else
             {
-                _selectedBlock.MoveTo(GetMousePositionOnGroundPlane(), false);
+                _selectedBlock.MoveTo(GetMousePositionOnGroundPlane() + _grabOffset, false);
                 UpdateSlotSelection();
             }
         }
@@ -61,7 +63,9 @@ namespace Interaction
                 if (!_hoveredBlock) return;
 
                 _selectedBlock = _hoveredBlock;
+                _grabOffset = _selectedBlock.transform.position - GetMousePositionOnGroundPlane();
                 _hoveredBlock.Select();
+                _hoveredBlock = null;
             }
             else if (context.canceled)
             {

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6171642707996797262
+--- !u!1 &4587259897869375056
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6879784052154373518}
-  - component: {fileID: 8497948366154649065}
+  - component: {fileID: 1191170075074915275}
+  - component: {fileID: 3598840150420185844}
   m_Layer: 0
-  m_Name: Fraction Builder
+  m_Name: Audio Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6879784052154373518
+--- !u!4 &1191170075074915275
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6171642707996797262}
+  m_GameObject: {fileID: 4587259897869375056}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,25 +32,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8497948366154649065
+--- !u!114 &3598840150420185844
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6171642707996797262}
+  m_GameObject: {fileID: 4587259897869375056}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e04398d248a44c38f55f8c69aacbed2, type: 3}
+  m_Script: {fileID: 11500000, guid: 88d197db190a21b4d9018171da985a55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fullFractionPrefab: {fileID: 5940027148636768624, guid: 7e1e4aea1e79d2743b1ccd8087f4a475, type: 3}
-  _partialFractionPrefab: {fileID: 8312682610536644195, guid: 60e9be1490bb09149886a8e0dc1555de, type: 3}
-  _fractionSlotPrefab: {fileID: 4376360383426299786, guid: ed9bff59ef699cb4baee4a09cfe05d25, type: 3}
-  _animationStartPosition: {x: -9, y: 3, z: 0}
-  _animationStartRotation: {x: 0, y: -30, z: 0}
-  _spawnCenterPosition: {x: 0, y: 0.13, z: 0}
-  _maxRandomOffset: {x: 0.25, y: 0, z: 0.25}
-  _maxRandomRotationAngle: 7
-  _gap: 0.75
-  _animationDelay: 0.1
+  _audioClips:
+  - name: click
+    clip: {fileID: 8300000, guid: 9c5ae396c05312f4fad2e115741844d6, type: 3}
+  - name: stone_drop
+    clip: {fileID: 8300000, guid: 8d1c0b1a1dfadf247878d2e1f78e977c, type: 3}
+  - name: knock
+    clip: {fileID: 8300000, guid: e57203e9e8ed07c45bd7a304777f4656, type: 3}
