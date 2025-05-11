@@ -19,6 +19,9 @@ namespace Interaction
 
         [Inject]
         private readonly ControlsManager _controlsManager;
+        
+        [Inject]
+        private readonly GameManager _gameManager;
 
         private AFractionBlock _hoveredBlock;
         private AFractionBlock _selectedBlock;
@@ -36,6 +39,16 @@ namespace Interaction
         {
             _camera = Camera.main;
             _controlsManager.Interact += OnInteract;
+            
+            _gameManager.GameStartEvent += OnGameStart;
+        }
+
+        private void OnGameStart()
+        {
+            _hoveredBlock = null;
+            _selectedBlock = null;
+            _hoveredSlot = null;
+            _hoveredSlotPart = null;
         }
 
         private void OnDestroy()
@@ -95,7 +108,11 @@ namespace Interaction
 
                 if (_hoveredBlock != hoveredBlock)
                 {
-                    _hoveredBlock?.SetHover(false);
+                    if (_hoveredBlock)
+                    {
+                        _hoveredBlock.SetHover(false);
+                    }
+                    
                     _hoveredBlock = hoveredBlock;
                     _hoveredBlock.SetHover(true);
                 }
