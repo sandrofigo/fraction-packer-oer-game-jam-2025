@@ -7,6 +7,7 @@ public struct Fraction
     public int Denominator;
     public float Value => (Numerator / (float) Denominator);
     public bool IsValid => (Numerator > 0 && Denominator > 0);
+    public bool IsEmpty => (Numerator == 0 && Denominator == 0);
 }
 
 public class Problem

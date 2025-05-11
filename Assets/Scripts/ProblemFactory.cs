@@ -28,6 +28,7 @@ public struct ParseData
     public int amountFractions;
     public Dictionary<int, Fraction> presetFractions; // idx, fraction
     public List<OperatorType> operators;
+    public List<Fraction> userFractions;
 }
 
 
